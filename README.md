@@ -10,8 +10,9 @@ Lapisan ini menyediakan pnpm/Turborepo, TypeScript strict, lint/format/CI, boots
 lokal yang aman, dan `packages/shared`: kontrak Zod, client API tervalidasi, formatter
 Rupiah/WIB, serta optimizer paket harga eksplisit. `packages/db` menyediakan schema admin,
 sesi, audit append-only, armada/foto/tarif, dan pengaturan; migrasi dan seed idempotent tersedia.
-API admin dan kedua web dikirim pada PR lanjutan dalam stack yang sama. **Belum ada aplikasi
-login atau booking pada revisi ini.** Lihat [ADR 0001](docs/adr/0001-foundation-slice.md).
+API admin NestJS kini menyediakan autentikasi, RBAC, inspeksi fondasi, storage privat, dan queue
+dasar. Kedua web dikirim pada PR lanjutan dalam stack yang sama. **Belum ada UI login atau
+booking pada revisi ini.** Lihat [ADR 0001](docs/adr/0001-foundation-slice.md).
 
 ## Menjalankan dan memverifikasi lapisan ini
 
@@ -32,8 +33,8 @@ stack sekaligus. Native memverifikasi PID/binary/data directory sebelum memakai 
 
 `.env` dibuat dengan secret acak dan tidak ditimpa. Jangan membagikan atau commit `.env`.
 Setup/dev dan shortcut mutasi database root menolak database non-loopback serta mode produksi.
-Perintah setup aplikasi lengkap dan `pnpm dev` digunakan setelah lapisan API/web tersedia.
-Bootstrap tidak mereset data.
+`pnpm run setup` menyiapkan database/seed serta bucket privat. `pnpm dev` untuk ketiga aplikasi
+digunakan setelah lapisan web tersedia. Bootstrap tidak mereset data.
 
 ## Database lokal
 
@@ -46,6 +47,24 @@ Model booking, invoice, pembayaran, dan operasional ditambahkan melalui migrasi 
 Relasi sesi/audit menggunakan waktu UTC `timestamptz`; nominal tarif integer rupiah. Trigger
 database menolak update/delete/truncate audit. Jalur `pnpm --filter @fa/db migrate:deploy`
 tetap tersedia secara eksplisit untuk operator deployment dengan environment terkelola.
+
+## API fondasi
+
+Setelah setup, jalankan `pnpm build`, lalu
+`pnpm exec dotenv -e .env -- pnpm --filter @fa/api start`. Health check berada di
+`http://localhost:4000/api/v1/health`; dokumentasi OpenAPI di `http://localhost:4000/api/docs`.
+`pnpm test:integration` memakai schema PostgreSQL, queue Redis, dan bucket S3 acak per eksekusi;
+endpoint layanan nonlokal ditolak dan resource test dibersihkan setelah eksekusi.
+
+JWT access 15 menit serta refresh terotasi memakai cookie HttpOnly, CSRF, dan verifikasi sesi
+database per request. Replay refresh mencabut seluruh keluarga sesi; logout dan penonaktifan
+user langsung mencabut akses. Audit autentikasi ditulis dalam transaksi yang sama dengan sesi.
+Detail batas keamanan tersedia pada [ADR 0002](docs/adr/0002-admin-session-security.md).
+
+Belum ada endpoint booking, invoice, pembayaran, portal, atau upload identitas. Signed URL
+storage hanya fondasi staging privat; validasi isi file dan otorisasi booking harus selesai
+sebelum upload domain diaktifkan. Produksi memerlukan HTTPS serta limiter bersama sebelum
+scaling multi-instance; revisi ini bukan deployment produksi.
 
 ## Batas kontrak harga
 
