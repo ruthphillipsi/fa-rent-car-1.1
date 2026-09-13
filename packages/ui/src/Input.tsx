@@ -27,7 +27,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const inputId = id ?? generatedId;
   const hintId = `${inputId}-hint`;
   const errorId = `${inputId}-error`;
-  const describedBy = [ariaDescribedBy, hint ? hintId : undefined, error ? errorId : undefined]
+  const describedBy = [
+    ariaDescribedBy,
+    hint && !error ? hintId : undefined,
+    error ? errorId : undefined,
+  ]
     .filter(Boolean)
     .join(' ');
 
