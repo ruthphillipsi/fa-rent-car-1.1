@@ -1,6 +1,6 @@
 # Design — Sistem Desain FA RENT CAR
 
-Sumber: referensi Stitch "iOS Car Rental Interface" dari user (13 Sep 2026), tersimpan di `docs/design-reference/` (screenshot PNG, HTML, dan dua file DESIGN.md asli). Dokumen ini adalah **ringkasan yang mengikat**; jika ada perbedaan dengan referensi, ikuti dokumen ini karena sudah disesuaikan dengan aturan bisnis FA RENT CAR (tanpa deposit, tanpa cabang, tanpa antar-jemput).
+Sumber: referensi Stitch "iOS Car Rental Interface" dari user (13 Sep 2026), tersimpan di `docs/design-reference/` (screenshot PNG, HTML, dan dua file DESIGN.md asli). Susunan tiap layar (bagian, teks, interaksi) dijabarkan di `docs/desainuiux.md`. Dokumen ini adalah **ringkasan yang mengikat**; jika ada perbedaan dengan referensi, ikuti dokumen ini karena sudah disesuaikan dengan aturan bisnis FA RENT CAR (tanpa deposit, tanpa cabang, tanpa antar-jemput).
 
 Gaya: **iOS-inspired, Corporate/Modern, dominan putih**, aksen biru untuk aksi dan harga, hitam untuk brand dan tombol utama. Bersih, editorial, padat data tapi lega. Tidak ada gradien warna-warni, glow, ilustrasi 3D, atau ornamen dekoratif.
 

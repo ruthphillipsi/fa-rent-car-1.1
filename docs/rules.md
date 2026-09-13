@@ -1,6 +1,6 @@
 # Rules — Aturan Pengembangan FA RENT CAR
 
-Dokumen ini mengikat semua pengerjaan di repo ini (manusia maupun AI agent). Jika ada konflik, urutan prioritas: **rules.md → prd.md → design.md → task.md → kode yang ada**.
+Dokumen ini mengikat semua pengerjaan di repo ini (manusia maupun AI agent). Jika ada konflik, urutan prioritas: **rules.md → prd.md → design.md → desainuiux.md → task.md → kode yang ada**.
 
 ---
 
@@ -10,7 +10,7 @@ Dokumen ini mengikat semua pengerjaan di repo ini (manusia maupun AI agent). Jik
 2. Kerjakan task sesuai urutan fase. Jangan lompat fase tanpa persetujuan user.
 3. Tandai task `[~]` saat mulai, `[x]` saat selesai (kode + test + dokumen), `[!]` jika diblokir beserta alasannya.
 4. Satu PR = satu task atau satu kelompok task kecil yang saling terkait. PR harus bisa direview dalam < 15 menit.
-5. Semua UI mengikuti `docs/design.md` (token, komponen, penyesuaian brand). Layar tanpa referensi dibuat sesuai sistem itu lalu dimintakan persetujuan user via screenshot.
+5. Semua UI mengikuti `docs/design.md` (token & komponen) dan `docs/desainuiux.md` (susunan layar bagian-per-bagian). Sebelum PR UI, jalankan checklist `desainuiux.md` §D. Layar tanpa referensi dibuat sesuai sistem itu lalu dimintakan persetujuan user via screenshot.
 6. Setiap keputusan arsitektur yang tidak tercantum di PRD dicatat di `docs/adr/NNNN-judul.md` (konteks, keputusan, konsekuensi) dan di tabel "Catatan keputusan" `task.md`.
 7. Jika PRD tidak menjawab suatu pertanyaan bisnis, **tanya user**; jangan mengasumsikan aturan bisnis (harga, refund, syarat).
 
