@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AdminRole {
+  STAFF
+  SUPERADMIN
+
+  @@map("admin_role")
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+
+  @@map("transmission")
+}
+
+enum VehicleCategory {
+  MPV
+  SUV
+  CITY_CAR
+  SEDAN
+  VAN
+
+  @@map("vehicle_category")
+}
+
+enum FuelType {
+  GASOLINE
+  DIESEL
+  HYBRID
+  ELECTRIC
+
+  @@map("fuel_type")
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  RENTED
+  HELD
+  MAINTENANCE
+  INACTIVE
+
+  @@map("vehicle_status")
+}
+
+model AdminUser {
+  id           String        @id @default(uuid()) @db.Uuid
+  name         String
+  email        String        @unique
+  passwordHash String        @map("password_hash")
+  role         AdminRole     @default(STAFF)
+  isActive     Boolean       @default(true) @map("is_active")
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt    DateTime?     @map("deleted_at") @db.Timestamptz(6)
+  authSessions AuthSession[]
+  auditLogs    AuditLog[]    @relation("AuditLogActor")
+
+  @@index([isActive], map: "admin_users_is_active_idx")
+  @@map("admin_users")
+}
+
+model AuthSession {
+  id               String    @id @default(uuid()) @db.Uuid
+  adminUserId      String    @map("admin_user_id") @db.Uuid
+  refreshTokenHash String    @unique @map("refresh_token_hash")
+  familyId         String    @default(uuid()) @map("family_id") @db.Uuid
+  expiresAt        DateTime  @map("expires_at") @db.Timestamptz(6)
+  revokedAt        DateTime? @map("revoked_at") @db.Timestamptz(6)
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  adminUser        AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Restrict)
+
+  @@index([adminUserId], map: "auth_sessions_admin_user_id_idx")
+  @@index([familyId], map: "auth_sessions_family_id_idx")
+  @@index([expiresAt], map: "auth_sessions_expires_at_idx")
+  @@map("auth_sessions")
+}
+
+model AuditLog {
+  id         String     @id @default(uuid()) @db.Uuid
+  actorId    String?    @map("actor_id") @db.Uuid
+  action     String
+  objectType String     @map("object_type")
+  objectId   String?    @map("object_id")
+  before     Json?      @map("before")
+  after      Json?      @map("after")
+  createdAt  DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  actor      AdminUser? @relation("AuditLogActor", fields: [actorId], references: [id], onDelete: Restrict)
+
+  @@index([actorId], map: "audit_logs_actor_id_idx")
+  @@index([objectType, objectId], map: "audit_logs_object_type_object_id_idx")
+  @@index([createdAt], map: "audit_logs_created_at_idx")
+  @@map("audit_logs")
+}
+
+model Vehicle {
+  id           String          @id @default(uuid()) @db.Uuid
+  brand        String
+  model        String
+  variant      String
+  year         Int
+  plate        String          @unique
+  color        String
+  transmission Transmission
+  category     VehicleCategory
+  fuelType     FuelType        @map("fuel_type")
+  capacity     Int
+  luggageCount Int             @map("luggage_count")
+  mileage      Int
+  facilities   String[]        @default([])
+  description  String          @db.Text
+  status       VehicleStatus   @default(AVAILABLE)
+  featured     Boolean         @default(false)
+  isDemo       Boolean         @default(false) @map("is_demo")
+  deletedAt    DateTime?       @map("deleted_at") @db.Timestamptz(6)
+  createdAt    DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  photos       VehiclePhoto[]
+  rate         VehicleRate?
+
+  @@index([status], map: "vehicles_status_idx")
+  @@index([category], map: "vehicles_category_idx")
+  @@index([isDemo], map: "vehicles_is_demo_idx")
+  @@map("vehicles")
+}
+
+model VehiclePhoto {
+  id        String  @id @default(uuid()) @db.Uuid
+  vehicleId String  @map("vehicle_id") @db.Uuid
+  objectKey String  @map("object_key")
+  sortOrder Int     @map("sort_order")
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
+
+  @@unique([vehicleId, sortOrder])
+  @@map("vehicle_photos")
+}
+
+model VehicleRate {
+  id             String  @id @default(uuid()) @db.Uuid
+  vehicleId      String  @unique @map("vehicle_id") @db.Uuid
+  daily          Int
+  weekly         Int?
+  monthly        Int?
+  driverPerDay   Int?    @map("driver_per_day")
+  overtimeHourly Int?    @map("overtime_hourly")
+  latePerDay     Int?    @map("late_per_day")
+  vehicle        Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
+
+  @@map("vehicle_rates")
+}
+
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("settings")
+}
