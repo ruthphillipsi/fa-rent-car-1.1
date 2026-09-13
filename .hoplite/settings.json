@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "ports": {
+    "preview": 3000,
+    "additional": {
+      "customer": 3001,
+      "api": 4000
+    }
+  },
+  "scripts": {
+    "setup": {"enabled": true, "command": "bash scripts/setup.sh"},
+    "run": {"enabled": true, "command": "bash scripts/dev.sh"}
+  }
+}
