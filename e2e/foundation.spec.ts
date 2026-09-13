@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { foundationResponseSchema } from '../packages/shared/src';
 
 test.beforeAll(() => {
@@ -20,6 +20,23 @@ async function expectNoPageOverflow(page: Page) {
   expect(dimensions.scroll).toBeLessThanOrEqual(dimensions.viewport);
 }
 
+async function captureProof(page: Page, project: string, name: string, mask: Locator[] = []) {
+  if (process.env.CAPTURE_UI_PROOF !== 'true') return;
+  const viewport = page.viewportSize();
+
+  try {
+    if (project === 'desktop') await page.setViewportSize({ width: 1280, height: 1000 });
+    await expectNoPageOverflow(page);
+    await page.screenshot({
+      path: `.hoplite/artifacts/${name}-${project}.png`,
+      fullPage: project === 'desktop',
+      mask,
+    });
+  } finally {
+    if (viewport && project === 'desktop') await page.setViewportSize(viewport);
+  }
+}
+
 test('admin: guard, validation, real login, fleet search, refresh, services and logout', async ({
   page,
   context,
@@ -38,9 +55,7 @@ test('admin: guard, validation, real login, fleet search, refresh, services and 
   await expect(page.getByText('Email wajib diisi.')).toBeVisible();
   await expect(page.getByText('Kata sandi wajib diisi.')).toBeVisible();
   await expect(page.getByRole('textbox', { name: 'Email', exact: true })).toBeFocused();
-  if (process.env.CAPTURE_UI_PROOF === 'true' && testInfo.project.name === 'desktop') {
-    await page.screenshot({ path: '.hoplite/artifacts/admin-login.png', fullPage: true });
-  }
+  await captureProof(page, testInfo.project.name, 'admin-login');
 
   await page.getByRole('textbox', { name: 'Email', exact: true }).fill(email);
   await page.getByLabel('Kata sandi').fill('not-the-correct-password');
@@ -50,6 +65,7 @@ test('admin: guard, validation, real login, fleet search, refresh, services and 
   await page.getByRole('button', { name: 'Masuk', exact: true }).click();
   await expect(page).toHaveURL('http://127.0.0.1:3000/');
   await expect(page.getByRole('heading', { name: 'Pusat Kendali Operasional' })).toBeVisible();
+  await expect(page.getByText('FA', { exact: true }).filter({ visible: true })).toBeVisible();
   await expectNoPageOverflow(page);
   const foundationResponse = await page.request.get('/api/v1/admin/foundation');
   expect(foundationResponse.ok()).toBe(true);
@@ -58,15 +74,7 @@ test('admin: guard, validation, real login, fleet search, refresh, services and 
   expect(
     foundation.vehicles.every((vehicle) => vehicle.isDemo && vehicle.plate.startsWith('DEMO-FA-')),
   ).toBe(true);
-  if (process.env.CAPTURE_UI_PROOF === 'true') {
-    if (testInfo.project.name === 'desktop')
-      await page.setViewportSize({ width: 1280, height: 1000 });
-    await expectNoPageOverflow(page);
-    await page.screenshot({
-      path: `.hoplite/artifacts/admin-${testInfo.project.name}.png`,
-      fullPage: testInfo.project.name === 'desktop',
-    });
-  }
+  await captureProof(page, testInfo.project.name, 'admin');
 
   await page.getByRole('link', { name: /^(Manajemen Armada|Armada)$/ }).click();
   await expect(page).toHaveURL(/\/armada$/);
@@ -81,9 +89,7 @@ test('admin: guard, validation, real login, fleet search, refresh, services and 
   await page.keyboard.press('Control+k');
   await expect(page.getByLabel('Cari armada', { exact: true })).toBeFocused();
   await expectNoPageOverflow(page);
-  if (process.env.CAPTURE_UI_PROOF === 'true' && testInfo.project.name === 'desktop') {
-    await page.screenshot({ path: '.hoplite/artifacts/admin-fleet.png', fullPage: true });
-  }
+  await captureProof(page, testInfo.project.name, 'admin-fleet');
 
   await page.getByRole('spinbutton', { name: 'Armada per halaman', exact: true }).fill('2');
   await page.getByRole('button', { name: 'Terapkan', exact: true }).click();
@@ -175,8 +181,14 @@ test('admin: guard, validation, real login, fleet search, refresh, services and 
   await expect(page.getByRole('heading', { name: 'Status Sistem', exact: true })).toBeVisible();
   await expect(page.getByText('Terhubung', { exact: true })).toHaveCount(3);
   await expectNoPageOverflow(page);
+  await captureProof(page, testInfo.project.name, 'admin-system');
 
   await page.goto('/profil');
+  await expect(page.getByRole('heading', { name: 'Profil', exact: true })).toBeVisible();
+  await expectNoPageOverflow(page);
+  await captureProof(page, testInfo.project.name, 'admin-profile', [
+    page.getByText(email, { exact: true }),
+  ]);
   await page.getByRole('button', { name: 'Keluar', exact: true }).last().click();
   await expect(page).toHaveURL(/\/login$/);
   await expect(page.getByRole('heading', { name: 'Masuk ke Operations Hub' })).toBeVisible();
@@ -195,17 +207,10 @@ test('customer: truthful foundation page, navigation and official contact', asyn
   await expect(
     page.getByRole('heading', { name: 'Katalog dan pemesanan online belum tersedia' }),
   ).toBeVisible();
+  await expect(page.getByRole('banner').getByText('FA', { exact: true })).toBeVisible();
   const whatsapp = page.getByRole('link', { name: /WhatsApp/ }).first();
   await expect(whatsapp).toHaveAttribute('href', /^https:\/\/wa\.me\/6285224484488\?text=/);
   await expect(page.getByText(/Jl\. Pilang Raya No\.10/).first()).toBeVisible();
   await expectNoPageOverflow(page);
-  if (process.env.CAPTURE_UI_PROOF === 'true') {
-    if (testInfo.project.name === 'desktop')
-      await page.setViewportSize({ width: 1280, height: 1000 });
-    await expectNoPageOverflow(page);
-    await page.screenshot({
-      path: `.hoplite/artifacts/customer-${testInfo.project.name}.png`,
-      fullPage: testInfo.project.name === 'desktop',
-    });
-  }
+  await captureProof(page, testInfo.project.name, 'customer');
 });

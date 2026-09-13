@@ -93,7 +93,9 @@ dan menutup server miliknya setelah selesai. Jangan arahkan pengujian ke data op
 
 `CAPTURE_UI_PROOF=true pnpm test:e2e` menghasilkan screenshot desktop 1280 px dan mobile
 di `.hoplite/artifacts` setelah memastikan seluruh armada merupakan data sintetis. Artefak
-browser, credential, dan build tidak masuk Git. GitHub Actions menjalankan formatting, lint,
+meliputi dashboard, login, armada, status sistem, profil (email disamarkan), dan halaman customer;
+viewport tes dipulihkan setelah capture. Artefak browser, credential, dan build tidak masuk Git.
+GitHub Actions menjalankan formatting, lint,
 typecheck, unit test, build, integration, dan E2E pada PR.
 
 ## Struktur dan keamanan

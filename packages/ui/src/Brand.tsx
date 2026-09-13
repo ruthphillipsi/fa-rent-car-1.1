@@ -1,4 +1,3 @@
-import { Icon } from './Icon';
 import { cx } from './lib/cx';
 
 export interface BrandProps {
@@ -11,11 +10,12 @@ export function Brand({ compact = false, subtitle = 'Sewa mobil Cirebon', classN
   return (
     <div className={cx('flex min-w-0 items-center gap-3', className)}>
       <span
+        role={compact ? 'img' : undefined}
         aria-hidden={!compact}
         aria-label={compact ? 'FA RENT CAR' : undefined}
-        className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary text-surface-lowest"
+        className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-title font-bold text-surface-lowest"
       >
-        <Icon name="directions_car" />
+        FA
       </span>
       {!compact ? (
         <span className="flex min-w-0 flex-col">
