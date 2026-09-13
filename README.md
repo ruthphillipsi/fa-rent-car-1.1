@@ -31,6 +31,10 @@ Docker Compose v2 dapat dipilih lewat `FA_SERVICES_MODE=compose`. Compose memaka
 project unik per canonical path checkout; port lokal tetap sama dan tidak bisa dipakai dua
 stack sekaligus. Native memverifikasi PID/binary/data directory sebelum memakai ulang layanan.
 
+Image MinIO Compose memakai registry resmi `quay.io/minio/minio` dengan rilis yang sama
+seperti mode native, dikunci ke digest multi-arsitektur. Tidak diperlukan login Docker Hub;
+health check, volume persisten, dan bucket privat tetap digunakan.
+
 `.env` dibuat dengan secret acak dan tidak ditimpa. Jangan membagikan atau commit `.env`.
 Setup/dev dan shortcut mutasi database root menolak database non-loopback serta mode produksi.
 `pnpm run setup` menyiapkan database/seed serta bucket privat. `pnpm dev` untuk ketiga aplikasi
