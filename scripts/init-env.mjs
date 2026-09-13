@@ -34,11 +34,19 @@ if (!existsSync(envFile)) {
     SEED_DEMO_DATA: 'true',
   };
   try {
-    writeFileSync(envFile, Object.entries(values).map(([key, value]) => `${key}=${value}\n`).join(''), {
-      mode: 0o600,
-      flag: 'wx',
-    });
-    process.stdout.write('Created private .env with unique local credentials. Existing environments are never overwritten.\n');
+    writeFileSync(
+      envFile,
+      Object.entries(values)
+        .map(([key, value]) => `${key}=${value}\n`)
+        .join(''),
+      {
+        mode: 0o600,
+        flag: 'wx',
+      },
+    );
+    process.stdout.write(
+      'Created private .env with unique local credentials. Existing environments are never overwritten.\n',
+    );
   } catch (error) {
     if (!(error && typeof error === 'object' && 'code' in error && error.code === 'EEXIST')) {
       throw error;

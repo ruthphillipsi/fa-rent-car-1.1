@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
 umask 077
 
 ROOT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
 cd "$ROOT_DIR"
-
 STATE_DIR="$ROOT_DIR/.hoplite/native"
 ENV_FILE="$ROOT_DIR/.env"
 PG_ROOT="$STATE_DIR/postgres"
@@ -32,6 +30,7 @@ LOCK_DIR="$STATE_DIR/services.lock.d"
 APT_UPDATED=0
 PG_BIN_DIR=""
 PG_INITDB=""
+PG_SERVER=""
 PG_CTL=""
 PG_PSQL=""
 PG_CREATEDB=""
@@ -45,154 +44,7 @@ MINIO_ROOT_USER=""
 MINIO_ROOT_PASSWORD=""
 LOCK_HELD=0
 
-info() {
-  printf '%s\n' "$*"
-}
-
-die() {
-  printf 'Native services: %s\n' "$*" >&2
-  exit 1
-}
-
-require_environment() {
-  [[ -f "$ENV_FILE" ]] || die 'environment missing; run node scripts/init-env.mjs first'
-}
-
-env_value() {
-  local key="$1"
-  local line value
-
-  line="$(grep -m1 -E "^${key}=" "$ENV_FILE" || true)"
-  [[ -n "$line" ]] || die "missing ${key} in .env"
-  value="${line#*=}"
-  value="${value%$'\r'}"
-  [[ -n "$value" ]] || die "empty ${key} in .env"
-  printf '%s' "$value"
-}
-
-load_environment() {
-  POSTGRES_USER="$(env_value POSTGRES_USER)"
-  POSTGRES_DB="$(env_value POSTGRES_DB)"
-  POSTGRES_PASSWORD="$(env_value POSTGRES_PASSWORD)"
-  REDIS_PASSWORD="$(env_value REDIS_PASSWORD)"
-  MINIO_ROOT_USER="$(env_value MINIO_ROOT_USER)"
-  MINIO_ROOT_PASSWORD="$(env_value MINIO_ROOT_PASSWORD)"
-
-  [[ "$POSTGRES_USER" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || die 'POSTGRES_USER must be a PostgreSQL identifier'
-  [[ "$POSTGRES_DB" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || die 'POSTGRES_DB must be a PostgreSQL identifier'
-}
-
-prepare_state_directory() {
-  mkdir -p "$STATE_DIR"
-  chmod 711 "$ROOT_DIR/.hoplite" "$STATE_DIR"
-}
-
-release_lock() {
-  [[ "$LOCK_HELD" -eq 1 ]] || return 0
-  if [[ -f "$LOCK_DIR/pid" ]] && [[ "$(cat "$LOCK_DIR/pid" 2>/dev/null || true)" == "$$" ]]; then
-    rm -rf "$LOCK_DIR"
-  fi
-}
-
-acquire_lock() {
-  local owner deadline
-  deadline=$((SECONDS + 120))
-
-  while ! mkdir "$LOCK_DIR" 2>/dev/null; do
-    owner="$(cat "$LOCK_DIR/pid" 2>/dev/null || true)"
-    if [[ "$owner" =~ ^[0-9]+$ ]] && ! kill -0 "$owner" 2>/dev/null; then
-      rm -f "$LOCK_DIR/pid"
-      rmdir "$LOCK_DIR" 2>/dev/null || true
-      continue
-    fi
-    (( SECONDS < deadline )) || die 'timed out waiting for another native service operation'
-    sleep 1
-  done
-
-  printf '%s\n' "$$" >"$LOCK_DIR/pid"
-  LOCK_HELD=1
-}
-
-require_root_for_packages() {
-  [[ "$(id -u)" -eq 0 ]] || die 'package installation requires root; use Docker Compose or install the missing service first'
-}
-
-install_packages() {
-  require_root_for_packages
-  if [[ "$APT_UPDATED" -eq 0 ]]; then
-    info 'Refreshing apt metadata for native backing services.'
-    DEBIAN_FRONTEND=noninteractive apt-get update -qq
-    APT_UPDATED=1
-  fi
-  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "$@"
-}
-
-detect_postgres_binaries() {
-  local candidate
-  PG_BIN_DIR=""
-
-  for candidate in /usr/lib/postgresql/16/bin "$(dirname "$(command -v initdb 2>/dev/null || true)")"; do
-    [[ -x "$candidate/initdb" ]] || continue
-    if "$candidate/initdb" --version 2>/dev/null | grep -Eq '\)[[:space:]]+16\.'; then
-      PG_BIN_DIR="$candidate"
-      break
-    fi
-  done
-
-  if [[ -n "$PG_BIN_DIR" ]]; then
-    PG_INITDB="$PG_BIN_DIR/initdb"
-    PG_CTL="$PG_BIN_DIR/pg_ctl"
-    PG_PSQL="$PG_BIN_DIR/psql"
-    PG_CREATEDB="$PG_BIN_DIR/createdb"
-  fi
-}
-
-ensure_postgres_binaries() {
-  detect_postgres_binaries
-  if [[ -z "$PG_BIN_DIR" ]]; then
-    install_packages postgresql-16 postgresql-client-16
-    detect_postgres_binaries
-  fi
-  [[ -n "$PG_BIN_DIR" ]] || die 'PostgreSQL 16 binaries are unavailable; use Docker Compose or install postgresql-16'
-}
-
-ensure_redis_binaries() {
-  if ! command -v redis-server >/dev/null 2>&1 || ! command -v redis-cli >/dev/null 2>&1; then
-    install_packages redis-server
-  fi
-  REDIS_SERVER="$(command -v redis-server 2>/dev/null || true)"
-  REDIS_CLI="$(command -v redis-cli 2>/dev/null || true)"
-  [[ -n "$REDIS_SERVER" && -n "$REDIS_CLI" ]] || die 'Redis binaries are unavailable after installation'
-}
-
-ensure_minio_dependencies() {
-  local packages=()
-
-  command -v curl >/dev/null 2>&1 || packages+=(curl)
-  [[ -r /etc/ssl/certs/ca-certificates.crt ]] || packages+=(ca-certificates)
-  command -v sha256sum >/dev/null 2>&1 || packages+=(coreutils)
-
-  if (( ${#packages[@]} > 0 )); then
-    install_packages "${packages[@]}"
-  fi
-}
-
-run_as_postgres() {
-  if [[ "$(id -u)" -eq 0 ]]; then
-    id postgres >/dev/null 2>&1 || die 'the postgres system account is unavailable'
-    runuser -u postgres -- "$@"
-  else
-    "$@"
-  fi
-}
-
-run_as_redis() {
-  if [[ "$(id -u)" -eq 0 ]] && id redis >/dev/null 2>&1; then
-    runuser -u redis -- "$@"
-  else
-    "$@"
-  fi
-}
+source "$ROOT_DIR/scripts/native-service-utils.sh"
 
 prepare_postgres_paths() {
   if [[ "$(id -u)" -eq 0 ]]; then
@@ -213,6 +65,15 @@ postgres_connects_to() {
   PGPASSWORD="$POSTGRES_PASSWORD" "$PG_PSQL" --no-psqlrc --quiet --tuples-only --no-align \
     --host=127.0.0.1 --port=5432 --username="$POSTGRES_USER" --dbname="$database" \
     --command='SELECT 1' >/dev/null 2>&1
+}
+
+postgres_is_owned() {
+  local pid
+  [[ -f "$PG_DATA/PG_VERSION" ]] || return 1
+  pid="$(pid_from_file "$PG_DATA/postmaster.pid" || true)"
+  [[ -n "$pid" ]] || return 1
+  pid_uses_binary "$pid" "$PG_SERVER" && process_has_argument "$pid" "$PG_DATA" &&
+    run_as_postgres "$PG_CTL" --pgdata="$PG_DATA" status >/dev/null 2>&1
 }
 
 initialize_postgres() {
@@ -250,16 +111,14 @@ ensure_project_database() {
 }
 
 start_postgres() {
-  if postgres_connects_to "$POSTGRES_DB"; then
+  if postgres_is_owned; then
+    ensure_project_database || die 'Native PostgreSQL is running but local credentials were rejected'
     info 'PostgreSQL is ready.'
     return
   fi
 
-  if postgres_connects_to postgres; then
-    [[ -f "$PG_DATA/PG_VERSION" ]] || die 'PostgreSQL is already listening on port 5432; refusing to alter an external server'
-    ensure_project_database
-    info 'PostgreSQL is ready.'
-    return
+  if tcp_port_is_in_use 5432; then
+    die 'PostgreSQL is already listening on port 5432; refusing to alter an external server'
   fi
 
   initialize_postgres
@@ -269,6 +128,7 @@ start_postgres() {
     die "PostgreSQL could not start. Inspect $PG_LOG"
   fi
 
+  postgres_is_owned || die 'PostgreSQL started without proving ownership of the local data directory'
   ensure_project_database || die 'PostgreSQL started but local credentials were rejected'
   info 'PostgreSQL is ready.'
 }
@@ -285,6 +145,18 @@ prepare_redis_paths() {
 
 redis_is_healthy() {
   REDISCLI_AUTH="$REDIS_PASSWORD" "$REDIS_CLI" --no-auth-warning --raw -h 127.0.0.1 -p 6379 ping 2>/dev/null | grep -qx 'PONG'
+}
+
+redis_is_owned() {
+  local pid redisDirectory
+  pid="$(pid_from_file "$REDIS_PID" || true)"
+  [[ -n "$pid" ]] || return 1
+  pid_uses_binary "$pid" "$REDIS_SERVER" || return 1
+  redisDirectory="$(
+    REDISCLI_AUTH="$REDIS_PASSWORD" "$REDIS_CLI" --no-auth-warning --raw -h 127.0.0.1 -p 6379 \
+      config get dir 2>/dev/null || true
+  )"
+  [[ "$redisDirectory" == $'dir\n'"$REDIS_DATA" ]]
 }
 
 write_redis_config() {
@@ -312,20 +184,28 @@ EOF
 }
 
 start_redis() {
-  if redis_is_healthy; then
-    info 'Redis is ready.'
-    return
+  if redis_is_owned; then
+    if redis_is_healthy; then
+      info 'Redis is ready.'
+      return
+    fi
+    die 'Native Redis is running but local credentials were rejected'
+  fi
+
+  if tcp_port_is_in_use 6379; then
+    die 'Redis is already listening on port 6379; refusing to alter an external server'
   fi
 
   prepare_redis_paths
   write_redis_config
+  rm -f "$REDIS_PID"
   if ! run_as_redis "$REDIS_SERVER" "$REDIS_CONFIG" >/dev/null 9>&-; then
     die "Redis could not start. Inspect $REDIS_LOG"
   fi
 
   local attempt
   for attempt in $(seq 1 60); do
-    if redis_is_healthy; then
+    if redis_is_owned && redis_is_healthy; then
       info 'Redis is ready.'
       return
     fi
@@ -336,6 +216,13 @@ start_redis() {
 
 minio_is_healthy() {
   curl --fail --silent --show-error --max-time 2 http://127.0.0.1:9000/minio/health/live >/dev/null 2>&1
+}
+
+minio_is_owned() {
+  local pid
+  pid="$(pid_from_file "$MINIO_PID" || true)"
+  [[ -n "$pid" ]] || return 1
+  pid_uses_binary "$pid" "$MINIO_BIN" && process_has_argument "$pid" "$MINIO_DATA"
 }
 
 verify_minio_binary() {
@@ -379,9 +266,17 @@ prepare_minio_paths() {
 }
 
 start_minio() {
-  if minio_is_healthy; then
-    info 'MinIO is ready.'
-    return
+  if minio_is_owned; then
+    ensure_minio_dependencies
+    if minio_is_healthy; then
+      info 'MinIO is ready.'
+      return
+    fi
+    die 'Native MinIO is running but did not pass its health check'
+  fi
+
+  if tcp_port_is_in_use 9000 || tcp_port_is_in_use 9001; then
+    die 'MinIO is already listening on port 9000 or 9001; refusing to alter an external server'
   fi
 
   ensure_minio_binary
@@ -394,7 +289,7 @@ start_minio() {
 
   local attempt
   for attempt in $(seq 1 60); do
-    if minio_is_healthy; then
+    if minio_is_owned && minio_is_healthy; then
       info 'MinIO is ready.'
       return
     fi
@@ -403,19 +298,9 @@ start_minio() {
   die "MinIO did not become ready. Inspect $MINIO_LOG"
 }
 
-valid_pid() {
-  [[ "$1" =~ ^[0-9]+$ ]] && kill -0 "$1" 2>/dev/null
-}
-
-pid_uses_binary() {
-  local pid="$1"
-  local binary="$2"
-  valid_pid "$pid" && [[ -r "/proc/$pid/exe" ]] && [[ "$(readlink -f "/proc/$pid/exe")" == "$(readlink -f "$binary")" ]]
-}
-
 stop_postgres() {
   detect_postgres_binaries
-  if [[ -n "$PG_CTL" && -f "$PG_DATA/PG_VERSION" ]] && run_as_postgres "$PG_CTL" --pgdata="$PG_DATA" status >/dev/null 2>&1; then
+  if [[ -n "$PG_CTL" ]] && postgres_is_owned; then
     run_as_postgres "$PG_CTL" --pgdata="$PG_DATA" --wait --timeout=60 stop --mode=fast >/dev/null
     info 'PostgreSQL stopped.'
   fi
@@ -423,9 +308,9 @@ stop_postgres() {
 
 stop_redis() {
   local pid
-  [[ -f "$REDIS_PID" ]] || return
-  pid="$(cat "$REDIS_PID")"
-  pid_uses_binary "$pid" "$REDIS_SERVER" || return
+  pid="$(pid_from_file "$REDIS_PID" || true)"
+  [[ -n "$pid" ]] || return
+  redis_is_owned || return
   if [[ -n "$REDIS_CLI" ]] && redis_is_healthy; then
     REDISCLI_AUTH="$REDIS_PASSWORD" "$REDIS_CLI" --no-auth-warning -h 127.0.0.1 -p 6379 shutdown >/dev/null 2>&1 || true
   fi
@@ -438,9 +323,9 @@ stop_redis() {
 
 stop_minio() {
   local pid
-  [[ -f "$MINIO_PID" ]] || return
-  pid="$(cat "$MINIO_PID")"
-  if pid_uses_binary "$pid" "$MINIO_BIN"; then
+  pid="$(pid_from_file "$MINIO_PID" || true)"
+  [[ -n "$pid" ]] || return
+  if minio_is_owned; then
     kill -TERM "$pid" 2>/dev/null || true
     info 'MinIO stopped.'
   fi
@@ -451,24 +336,23 @@ show_status() {
   local failed=0
 
   detect_postgres_binaries
-  if [[ -n "$PG_PSQL" ]] && postgres_connects_to "$POSTGRES_DB"; then
+  if [[ -n "$PG_PSQL" ]] && postgres_is_owned && postgres_connects_to "$POSTGRES_DB"; then
     info 'PostgreSQL: ready'
   else
     info 'PostgreSQL: unavailable'
     failed=1
   fi
 
-  if command -v redis-cli >/dev/null 2>&1; then
-    REDIS_CLI="$(command -v redis-cli)"
-  fi
-  if [[ -n "$REDIS_CLI" ]] && redis_is_healthy; then
+  REDIS_CLI="$(command -v redis-cli 2>/dev/null || true)"
+  REDIS_SERVER="$(command -v redis-server 2>/dev/null || true)"
+  if [[ -n "$REDIS_CLI" && -n "$REDIS_SERVER" ]] && redis_is_owned && redis_is_healthy; then
     info 'Redis: ready'
   else
     info 'Redis: unavailable'
     failed=1
   fi
 
-  if minio_is_healthy; then
+  if minio_is_owned && minio_is_healthy; then
     info 'MinIO: ready'
   else
     info 'MinIO: unavailable'
@@ -497,10 +381,8 @@ main() {
       ;;
     stop)
       detect_postgres_binaries
-      if command -v redis-cli >/dev/null 2>&1; then
-        REDIS_CLI="$(command -v redis-cli)"
-        REDIS_SERVER="$(command -v redis-server 2>/dev/null || true)"
-      fi
+      REDIS_CLI="$(command -v redis-cli 2>/dev/null || true)"
+      REDIS_SERVER="$(command -v redis-server 2>/dev/null || true)"
       stop_minio
       stop_redis
       stop_postgres

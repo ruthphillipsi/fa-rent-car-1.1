@@ -3,6 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 node scripts/init-env.mjs
+node --env-file=.env scripts/local-db-mutation-guard.mjs
 bash scripts/services.sh up
 pnpm install --frozen-lockfile
 pnpm db:generate

@@ -8,7 +8,7 @@
     }
   },
   "scripts": {
-    "setup": {"enabled": true, "command": "bash scripts/setup.sh"},
-    "run": {"enabled": true, "command": "bash scripts/dev.sh"}
+    "setup": { "enabled": true, "command": "bash scripts/setup.sh" },
+    "run": { "enabled": true, "command": "bash scripts/dev.sh" }
   }
 }

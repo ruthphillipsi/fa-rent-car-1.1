@@ -13,22 +13,23 @@ case "$MODE" in
     ;;
   compose)
     if [[ ! -f .env ]]; then
-      printf 'Environment missing. Run pnpm setup first.\n' >&2
+      printf 'Environment missing. Run pnpm run setup first.\n' >&2
       exit 1
     fi
     if ! command -v docker >/dev/null 2>&1 || ! docker compose version >/dev/null 2>&1; then
       printf 'Docker is required when FA_SERVICES_MODE=compose. Use the default native mode in this environment.\n' >&2
       exit 1
     fi
+    COMPOSE_PROJECT_NAME="$(node scripts/compose-project-name.mjs "$ROOT_DIR")"
     case "$ACTION" in
       up)
-        exec docker compose --env-file .env up -d --wait
+        exec docker compose -p "$COMPOSE_PROJECT_NAME" --env-file .env up -d --wait
         ;;
       stop)
-        exec docker compose --env-file .env stop
+        exec docker compose -p "$COMPOSE_PROJECT_NAME" --env-file .env stop
         ;;
       status)
-        exec docker compose --env-file .env ps
+        exec docker compose -p "$COMPOSE_PROJECT_NAME" --env-file .env ps
         ;;
       *)
         printf 'Usage: %s {up|stop|status}\n' "$0" >&2
