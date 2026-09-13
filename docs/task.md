@@ -46,10 +46,10 @@ Urutan fase mengikuti `docs/prd.md` §13. Setiap task selesai harus punya: kode,
 
 ### 0.5 Web skeleton
 
-- [~] `packages/ui`: Tailwind preset dari design.md + komponen dasar (Button, Badge, Card, StatCard, Input, Segmented, Table, Sidebar, Topbar, BottomTabBar)
-- [~] `apps/web-admin`: Next.js, layout sidebar/topbar sesuai design.md, login page, guard route — pencarian/paginasi armada baca-saja, status layanan, profil, dan logout diuji pada 1440/390/360 px.
-- [~] `apps/web-customer`: Next.js, layout dasar — informasi usaha dan kontak resmi; bukan landing/katalog pemesanan Fase 2.
-- [~] Client API bertipe (fetch wrapper + Zod)
+- [x] `packages/ui`: Tailwind preset dari design.md + komponen dasar (Button, Badge, Card, StatCard, Input, Segmented, Table, Sidebar, Topbar, BottomTabBar)
+- [x] `apps/web-admin`: Next.js, layout sidebar/topbar sesuai design.md, login page, guard route — pencarian/paginasi armada baca-saja, status layanan, profil, dan logout diuji pada 1440/390/360 px.
+- [x] `apps/web-customer`: Next.js, layout dasar — informasi usaha dan kontak resmi; bukan landing/katalog pemesanan Fase 2.
+- [x] Client API bertipe (fetch wrapper + Zod)
 - [ ] Persetujuan visual user untuk layar tanpa referensi langsung (login, armada baca-saja, status/profil, dan halaman informasi customer sementara). Bukti screenshot dilampirkan pada PR UI; belum dianggap desain final.
 
 ---
