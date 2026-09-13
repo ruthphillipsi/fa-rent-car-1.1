@@ -1,0 +1,574 @@
+<html lang="id" style="">
+<script>(
+									function e(t){let n={code:2,message:`Position unavailable`},r=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),i=navigator.geolocation.watchPosition.bind(navigator.geolocation),a=navigator.geolocation.clearWatch.bind(navigator.geolocation),o=navigator.permissions.query.bind(navigator.permissions),s=[`tv.youtube.com`].includes(window.location.hostname),c,l,u,d=!1,f=!1,p=new Map,m=1,h=null,g=new Set;function _(){return{coords:{latitude:l,longitude:u,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function v(){return h?h.lat!==l||h.lon!==u:!0}function y(){if(!c)return;let e=_();p.forEach(({successCallback:t})=>{if(t)try{w(t,e)}catch{}})}function b(){p.forEach(e=>{c?e.realWatchId!==void 0&&(a(e.realWatchId),delete e.realWatchId):e.realWatchId===void 0&&e.successCallback&&(e.realWatchId=i(e.successCallback,e.errorCallback,e.options))})}function x(){localStorage.getItem(`geolocationPermissionState`)!==`granted`&&f?r(()=>{f=!1,T.tmp_successCallback(_()),s&&(localStorage.setItem(`geolocationPermissionState`,`granted`),setTimeout(()=>window.location.reload(),1e3))},T.tmp_errorCallback,T.tmp_options):T.tmp_successCallback(_())}function S(e=0){d?c===!0?x():r(T.tmp_successCallback,T.tmp_errorCallback,T.tmp_options):e<50?setTimeout(()=>S(e+1),100):T.tmp_errorCallback?.(n)}function C(e,t=0){if(e===void 0&&(e=m++),d){if(g.has(e))return g.delete(e),e;if(c===!0)p.set(e,{successCallback:T.tmp2_successCallback,errorCallback:T.tmp2_errorCallback,options:T.tmp2_options}),T.tmp2_successCallback(_());else{let t=i(T.tmp2_successCallback,T.tmp2_errorCallback,T.tmp2_options);p.set(e,{successCallback:T.tmp2_successCallback,errorCallback:T.tmp2_errorCallback,options:T.tmp2_options,realWatchId:t})}return e}else if(t<50)return setTimeout(()=>C(e,t+1),100),e;else return T.tmp2_errorCallback?.(n),e}function w(e,t){let n=e.toString();try{Function(`position`,`return (${n})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){let t=await o(e);if(e.name!==`geolocation`||!s)return t;let n=t.state;return n===`prompt`&&(n=localStorage.getItem(`geolocationPermissionState`)??n),f=c&&n===`prompt`,{...t,state:n}};let T={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,n){this.tmp_successCallback=t=>w(e,t),this.tmp_errorCallback=t,this.tmp_options=n,S()},watchPosition(e,t,n){return this.tmp2_successCallback=t=>w(e,t),this.tmp2_errorCallback=t,this.tmp2_options=n,C()},clearWatch(e){let t=p.get(e);t?(t.realWatchId!==void 0&&a(t.realWatchId),p.delete(e)):e<m&&g.add(e)}},E=Object.getOwnPropertyDescriptor(navigator,`geolocation`);if(!E||E.configurable)try{Object.defineProperty(navigator,"geolocation",{value:T,configurable:!1,writable:!1})}catch{D()}else D();function D(){if(navigator.geolocation)try{navigator.geolocation.getCurrentPosition=T.getCurrentPosition.bind(T),navigator.geolocation.watchPosition=T.watchPosition.bind(T),navigator.geolocation.clearWatch=T.clearWatch.bind(T)}catch{}}let O=(e,t)=>{let n=Function.bind;return new(n.bind(n)(e,null).apply(null,t))};Blob=(function(t){function n(...n){let r=[{mime:`text/html`,useXMLparser:!1},{mime:`application/xhtml+xml`,useXMLparser:!0},{mime:`text/xml`,useXMLparser:!0},{mime:`application/xml`,useXMLparser:!0},{mime:`image/svg+xml`,useXMLparser:!0}],i=n.find(e=>typeof e==`object`&&typeof e.type==`string`&&e.type);if(i!==void 0&&typeof n[0][0]==`string`){let t=r.findIndex(e=>e.mime.toLowerCase()===i.type.toLowerCase());if(t>=0){let a=r[t],o=new DOMParser,s;if(s=a.useXMLparser===!0?o.parseFromString(n[0].join(``),a.mime):o.parseFromString(n[0][0],a.mime),s.getElementsByTagName(`parsererror`).length===0){if(i.type===`image/svg+xml`){let t=s.createElementNS(`http://www.w3.org/2000/svg`,`script`);t.setAttributeNS(null,`type`,`application/ecmascript`),t.innerHTML=`(${e})();`,s.documentElement.insertBefore(t,s.documentElement.firstChild)}else{let t=`
+								<script>(
+									${e}
+								)();
+								<\/script>
+							`;s.documentElement.insertAdjacentHTML(`afterbegin`,t)}a.useXMLparser===!0?n[0]=[new XMLSerializer().serializeToString(s)]:n[0][0]=s.documentElement.outerHTML}}}return O(t,n)}let r=Object.getOwnPropertyNames(t);for(let e=0;e<r.length;e++){let i=r[e];i in n||Object.defineProperty(n,i,Object.getOwnPropertyDescriptor(t,i))}return n.prototype=t.prototype,n})(Blob);function k(e){if(typeof e!=`object`||!e||typeof e.fakeIt!=`boolean`)return;let t=typeof e.coords==`object`&&e.coords!==null&&typeof e.coords.lat==`number`&&typeof e.coords.lon==`number`;if(e.fakeIt&&!t)return;let n=v(),r=c,i=d;l=t?e.coords.lat:void 0,u=t?e.coords.lon:void 0,c=e.fakeIt,d=!0,h={lat:l,lon:u},i&&r!==c&&b(),i&&(n||r!==c)&&y()}function A(e){e!==void 0&&document.addEventListener(e,function(e){try{k(JSON.parse(e.detail))}catch{}})}return A(t),A}
+								)();
+								</script>
+<head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>FE Rent Car | Premium Mobility</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-surface": "#191c1e", "outline": "#7e7576", "surface-variant": "#e1e2e4", "error": "#ba1a1a", "inverse-surface": "#2e3132", "surface-container-low": "#f2f4f6", "background": "#f8f9fb", "on-error-container": "#93000a", "primary-fixed": "#e2e2e2", "on-primary-fixed-variant": "#474747", "tertiary-fixed": "#d3e4ff", "secondary-fixed-dim": "#b6c4ff", "tertiary-fixed-dim": "#a1c9ff", "error-container": "#ffdad6", "surface-container-highest": "#e1e2e4", "primary": "#000000", "tertiary-container": "#001c38", "surface": "#f8f9fb", "on-surface-variant": "#4c4546", "tertiary": "#000000", "surface-container-lowest": "#ffffff", "on-secondary-fixed-variant": "#003ab1", "inverse-primary": "#c6c6c6", "primary-fixed-dim": "#c6c6c6", "surface-container-high": "#e7e8ea", "on-secondary-container": "#fffbff", "inverse-on-surface": "#f0f1f3", "on-background": "#191c1e", "on-primary": "#ffffff", "secondary-container": "#3d6af0", "outline-variant": "#cfc4c5", "on-tertiary-container": "#2a87dd", "surface-tint": "#5e5e5e", "surface-bright": "#f8f9fb", "on-tertiary-fixed": "#001c38", "on-tertiary": "#ffffff", "on-secondary-fixed": "#00164f", "on-primary-container": "#848484", "surface-container": "#edeef0", "on-secondary": "#ffffff", "on-tertiary-fixed-variant": "#004880", "surface-dim": "#d9dadc", "on-error": "#ffffff", "primary-container": "#1b1b1b", "secondary-fixed": "#dce1ff", "secondary": "#184fd6", "on-primary-fixed": "#1b1b1b" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-desktop": "64px", "container-max": "1280px", "gutter": "24px", "base": "8px", "margin-mobile": "20px" }, fontFamily: { "headline-lg-mobile": ["Inter"], "display-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"], "headline-md": ["Inter"], "body-md": ["Inter"] }, fontSize: { "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }], "display-lg": ["48px", { lineHeight: "60px", letterSpacing: "-0.02em", fontWeight: "700" }], "body-lg": ["16px", { lineHeight: "24px", letterSpacing: "0", fontWeight: "500" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "body-md": ["14px", { lineHeight: "21px", letterSpacing: "0", fontWeight: "400" }] } } } };</script></head><body class="bg-background text-on-surface font-body-md text-body-md antialiased selection:bg-secondary selection:text-on-secondary"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 max-w-container-max mx-auto px-margin-mobile md:px-gutter flex items-center justify-between gap-gutter"><div class="flex items-center gap-base"><div class="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md tracking-tight shadow-sm">FE</div><div class="flex flex-col"><span class="font-headline-md text-body-lg font-bold tracking-tight text-on-surface leading-none">FE Rent Car</span><span class="font-label-md text-label-md text-on-surface-variant tracking-wider uppercase mt-1 leading-none">Rental &amp; Mobility</span></div></div><nav class="hidden lg:flex items-center gap-base p-1 rounded-xl bg-surface-container-low" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded-lg"><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg font-body-md text-body-md" data-path="beranda" href="#">Beranda</a><a aria-current="page" class="px-3 py-2 transition-colors bg-surface-container-high text-on-surface font-semibold rounded-lg" data-path="katalog-armada" href="#">Katalog Armada</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg font-body-md text-body-md" data-path="tata-cara-sewa" href="#">Tata Cara Sewa</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg font-body-md text-body-md" data-path="cek-status" href="#">Cek Status</a><a class="px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors rounded-lg font-body-md text-body-md" data-path="kontak-bantuan" href="#">Kontak &amp; Bantuan</a></nav><div class="flex items-center gap-base"><a class="hidden xl:flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-white font-body-md text-[13px] font-semibold tracking-tight transition-all shadow-sm" href="https://wa.me/6281298421920" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[18px]">chat</span><span class="">Chat Admin (+62 812-9842-1920)</span></a><a class="px-4 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary font-body-md text-body-md font-semibold tracking-tight transition-all shadow-sm flex items-center gap-1.5" data-path="katalog-armada" href="#"><span class="material-symbols-outlined text-[18px]">directions_car</span><span class="">Cek Ketersediaan</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-background"><div class="flex flex-col w-full">
+<!-- Content Wrapper within Fixed Grid constraints -->
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter w-full py-8">
+<!-- 1. HEADER HALAMAN & BREADCRUMB -->
+<section class="mb-8">
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-2">
+<a class="hover:text-primary transition-colors" data-path="beranda" href="#">Beranda</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-secondary font-semibold">Katalog Armada</span>
+</nav>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Katalog &amp; Ketersediaan Armada</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5 max-w-3xl leading-relaxed">
+            Pilih tanggal untuk menyaring mobil yang benar-benar siap sewa secara real-time. Mobil yang sedang dirental pada rentang tanggal pilihan otomatis ditandai <span class="font-semibold text-on-surface">"Terbooking"</span> dengan transparansi penuh.
+          </p>
+</div>
+<div class="hidden md:flex items-center gap-3 px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[22px]">verified</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Inspeksi Standar 40 Titik</span>
+<span class="font-body-md text-[12px] text-on-surface-variant">Unit Higienis &amp; Teruji Siap Luar Kota</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2 KOLOM LAYOUT: SIDEBAR FILTER CERDAS (KIRI) + MAIN GRID (KANAN) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- 2. SIDEBAR FILTER CERDAS (Kiri, Sticky, 4 of 12 cols = w-80 approx) -->
+<aside class="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 space-y-4">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm p-6 flex flex-col gap-6">
+<!-- Heading Filter -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">tune</span>
+<h2 class="font-headline-md text-body-lg font-bold text-on-surface">Filter Pencarian</h2>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:underline cursor-pointer" id="reset-filter-btn" type="button">Reset Semua</button>
+</div>
+<!-- PRIMARY FILTER: Cek Tanggal Sewa -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">Periode Sewa</span>
+<span class="inline-flex items-center gap-1 font-label-md text-[11px] font-bold px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[13px]">schedule</span> 3 Hari
+              </span>
+</div>
+<div class="grid grid-cols-1 gap-2.5">
+<div>
+<label class="block font-label-md text-[11px] text-on-surface-variant mb-1">Tanggal Mulai (Pick-up)</label>
+<div class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">calendar_today</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface font-semibold focus:outline-none cursor-pointer" readonly="" type="text" value="15 Agu 2026, 09:00"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-[11px] text-on-surface-variant mb-1">Tanggal Selesai (Drop-off)</label>
+<div class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">event_available</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface font-semibold focus:outline-none cursor-pointer" readonly="" type="text" value="18 Agu 2026, 09:00"/>
+</div>
+</div>
+</div>
+<!-- Toggle Ketersediaan Mobil -->
+<label class="flex items-start gap-2 mt-1 cursor-pointer select-none">
+<input checked="" class="mt-0.5 w-4 h-4 rounded text-secondary focus:ring-secondary accent-secondary" type="checkbox"/>
+<span class="font-body-md text-[13px] text-on-surface font-medium leading-snug">
+                Hanya tampilkan mobil yang tersedia
+              </span>
+</label>
+</div>
+<!-- Kategori Mobil Filter -->
+<div class="flex flex-col gap-2.5">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">Kategori Kendaraan</span>
+<div class="space-y-2">
+<label class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-2.5">
+<input checked="" class="w-4 h-4 rounded text-secondary accent-secondary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface font-medium">Semua Kategori</span>
+</div>
+<span class="font-label-md text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">45 Unit</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-2.5">
+<input class="w-4 h-4 rounded text-secondary accent-secondary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">City Car &amp; Compact</span>
+</div>
+<span class="font-label-md text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">8</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-2.5">
+<input class="w-4 h-4 rounded text-secondary accent-secondary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">MPV Keluarga</span>
+</div>
+<span class="font-label-md text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">18</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-2.5">
+<input class="w-4 h-4 rounded text-secondary accent-secondary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">SUV Premium</span>
+</div>
+<span class="font-label-md text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">12</span>
+</label>
+<label class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-2.5">
+<input class="w-4 h-4 rounded text-secondary accent-secondary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Sedan &amp; Klasik</span>
+</div>
+<span class="font-label-md text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">7</span>
+</label>
+</div>
+</div>
+<!-- Pilihan Layanan -->
+<div class="flex flex-col gap-2.5">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">Pilihan Layanan</span>
+<div class="grid grid-cols-1 gap-2">
+<label class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low cursor-pointer">
+<input checked="" class="w-4 h-4 text-secondary accent-secondary" name="service_type" type="radio" value="self_drive"/>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Lepas Kunci (Self-Drive)</span>
+<span class="font-label-md text-[11px] text-on-surface-variant">Privasi maksimal, syarat KTP &amp; SIM A</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low cursor-pointer">
+<input class="w-4 h-4 text-secondary accent-secondary" name="service_type" type="radio" value="driver"/>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Dengan Supir Profesional</span>
+<span class="font-label-md text-[11px] text-secondary font-semibold">+Rp 200.000 / hari (Termasuk driver)</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Transmisi -->
+<div class="flex flex-col gap-2.5">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">Transmisi</span>
+<div class="grid grid-cols-2 gap-2">
+<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-4 h-4 text-secondary accent-secondary rounded" type="checkbox"/>
+<span class="font-body-md text-body-md font-medium text-on-surface">Automatic (AT)</span>
+</label>
+<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input class="w-4 h-4 text-secondary accent-secondary rounded" type="checkbox"/>
+<span class="font-body-md text-body-md font-medium text-on-surface">Manual (MT)</span>
+</label>
+</div>
+</div>
+<!-- Rentang Tarif -->
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface">Rentang Tarif</span>
+<span class="font-label-md text-[11px] text-secondary font-semibold">Harian</span>
+</div>
+<div class="flex items-center justify-between gap-2 text-on-surface-variant">
+<div class="w-1/2 p-2 rounded-lg bg-surface-container-low">
+<span class="font-label-md text-[10px] uppercase block text-on-surface-variant">Min</span>
+<span class="font-body-md text-[13px] font-bold text-on-surface">Rp 350.000</span>
+</div>
+<span class="text-on-surface-variant">-</span>
+<div class="w-1/2 p-2 rounded-lg bg-surface-container-low">
+<span class="font-label-md text-[10px] uppercase block text-on-surface-variant">Maks</span>
+<span class="font-body-md text-[13px] font-bold text-on-surface">Rp 2.500.000</span>
+</div>
+</div>
+<input class="w-full accent-secondary cursor-pointer mt-1" max="2500000" min="350000" step="50000" type="range" value="2500000"/>
+</div>
+<!-- Tombol Terapkan Filter -->
+<div class="pt-2 flex flex-col gap-2">
+<button class="w-full py-3 rounded-lg bg-primary text-on-primary font-body-md text-body-md font-semibold hover:bg-primary-container transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer" type="button">
+<span class="material-symbols-outlined text-[18px]">search</span>
+<span class="">Terapkan Filter</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- 3. MAIN CONTENT (Grid Mobil 3 Kolom - 8 of 12 / 9 of 12 cols) -->
+<main class="lg:col-span-8 xl:col-span-9 flex flex-col gap-6">
+<!-- Top Control Bar -->
+<div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<p class="font-body-md text-body-md text-on-surface">
+              Menampilkan <span class="font-bold text-on-surface">18 Mobil Tersedia</span> untuk periode <span class="font-semibold text-secondary">15 - 18 Agu 2026</span>
+</p>
+</div>
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<span class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">Urutkan:</span>
+<div class="relative w-full sm:w-48">
+<select class="w-full bg-surface-container-low text-on-surface font-body-md text-body-md font-semibold py-2 px-3 pr-8 rounded-lg appearance-none cursor-pointer focus:outline-none">
+<option selected="">Tarif Terendah</option>
+<option>Tarif Tertinggi</option>
+<option>Terpopuler</option>
+<option>Tahun Terbaru</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-on-surface-variant text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- DAFTAR KARTU MOBIL (3 Kolom Grid pada Desktop) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- ITEM 1: Toyota Avanza 1.5 G CVT (2023) -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
+<div class="relative w-full h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Studio automotive photograph of a clean, spotless modern white Toyota Avanza 1.5 G 2023, side three-quarters view, professional soft studio lighting, ultra-sharp detail, clean light gray floor reflection, high-end commercial car rental catalog aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUuL5NQN7NXCIVIobeeFVDDtK9tZF2047Lb9f3iaTtbgH0jjf7POrJXa8GK-NEUgWYwIW3D3_UQC2gd7J2BdstNk97RJ10fxxzf6d84QSGikoyWT73QKmUYW5-E4EkpIVIWSdbibEO5SpATlaStd5pn3ptlow_nsEMV4bjtSiLuN5j2sLbsj7dlMG8d4vQyu49sbVdzmBsYOh7uJvGAGLaMMzxeRKzd91WOKYplLFOVcKDo_o-lxwL"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-label-md text-[11px] font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-secondary animate-pulse"></span> Ready / Siap Sewa
+                </span>
+<span class="px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-label-md text-[11px] font-semibold">MPV</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest/80 backdrop-blur-sm text-on-surface-variant font-label-md text-[11px] font-bold">2023</span>
+</div>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface leading-snug">Toyota Avanza 1.5 G CVT</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-0.5">Pool Kuningan, Jakarta Selatan</p>
+<!-- Fitur Spesifikasi Chips -->
+<div class="grid grid-cols-3 gap-2 my-4 pt-3 border-t-0 bg-surface-container-low p-2.5 rounded-lg text-on-surface-variant font-label-md text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">airline_seat_recline_normal</span>
+<span class="">7 Kursi</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">settings</span>
+<span class="">Matic CVT</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">local_gas_station</span>
+<span class="">Bensin</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">speed</span>
+<span class="">28.000 km</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">videocam</span>
+<span class="">Kamera</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">child_friendly</span>
+<span class="">ISOFIX</span>
+</div>
+</div>
+</div>
+<!-- Pricing & Action -->
+<div class="pt-3 flex flex-col gap-3">
+<div class="flex items-baseline justify-between"><div><span class="block uppercase font-semibold text-[11px] text-outline tracking-wider">Tarif Harian</span><div class="flex items-baseline gap-1 mt-0.5"><span class="text-[28px] font-bold text-secondary tracking-tight leading-none">Rp 450.000</span><span class="font-body-md text-body-md text-on-surface-variant font-normal">/ hari</span></div></div></div>
+<button class="w-full py-2.5 px-4 rounded-lg bg-secondary text-on-secondary font-body-md text-body-md font-semibold hover:bg-secondary-container transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm" type="button">
+<span class="">Pilih Mobil</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- ITEM 2: Honda Civic RS Sedan Turbo (2022) -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 overflow-hidden group">
+<div class="relative w-full h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High quality studio shot of a lustrous cherry red Honda Civic RS Sedan Turbo 2022, dynamic 45 degree angle view, modern LED lights illuminated, minimalist studio background with subtle ambient rim light, ultra crisp details, premium rental brochure appearance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtMTFq9EKX5NlI7dTtB_noW8FN5calgD4tet2tSR12jzNvdUl1lgrQoGN70yiOFadfN0t3GdxkQXTOiU91_J7IiPdFS22ZICd77Yfwhu68ns4QVp_0Uyb9J9qLzUhnwVX20EYmYycxtwMLpjFj1D58DeIKQsqFuyhsLZEi15IYj1egniZVInALa6ieeHDEoQanS27aEdhLY94_G-ohbks0zYq9I1U0KzNjtBhqNoYgFJhIr7B4YWbQ"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-label-md text-[11px] font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-secondary animate-pulse"></span> Ready / Siap Sewa
+                </span>
+<span class="px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-label-md text-[11px] font-semibold">Sedan</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest/80 backdrop-blur-sm text-on-surface-variant font-label-md text-[11px] font-bold">2022</span>
+</div>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface leading-snug">Honda Civic RS Sedan Turbo</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-0.5">Pool Kuningan, Jakarta Selatan</p>
+<!-- Fitur Spesifikasi Chips -->
+<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-2.5 rounded-lg text-on-surface-variant font-label-md text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">airline_seat_recline_normal</span>
+<span class="">5 Kursi Sport</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">swap_driving_apps</span>
+<span class="">Paddle Shift</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">bolt</span>
+<span class="">VTEC Turbo 178 HP</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">shield</span>
+<span class="">Honda Sensing ADAS</span>
+</div>
+</div>
+</div>
+<!-- Pricing & Action -->
+<div class="pt-3 flex flex-col gap-3">
+<div class="flex items-baseline justify-between"><div><span class="block uppercase font-semibold text-[11px] text-outline tracking-wider">Tarif Harian</span><div class="flex items-baseline gap-1 mt-0.5"><span class="text-[28px] font-bold text-secondary tracking-tight leading-none">Rp 1.200.000</span><span class="font-body-md text-body-md text-on-surface-variant font-normal">/ hari</span></div></div></div>
+<button class="w-full py-2.5 px-4 rounded-lg bg-secondary text-on-secondary font-body-md text-body-md font-semibold hover:bg-secondary-container transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm" type="button">
+<span class="">Pilih Mobil</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- ITEM 3: Toyota Fortuner 2.8 VRZ 4x2 (2023) -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 overflow-hidden group">
+<div class="relative w-full h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Bold and muscular white Toyota Fortuner 2.8 VRZ 2023 SUV captured in sharp automotive studio lighting, front three-quarter view, tinted windows, gloss black alloy rims, pristine condition, elegant minimalist background with soft floor shadow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMeWVdMxL607GZL1x06jw13mteKF9WCvkVC8PKi1vgZWmkAudZbmJxwTbl0T9SE9i7OoXhWKnc2unfzmX0vHGdukqplT_abIoXV3FoDB8FlbWUbWdk6ZoQJ6olDecz0OKuMQnrKfQlvITBxv99L9TXjkKO8zuqbvG8HTXFizvK_t6TJmElRLgPdpeiggTt6sHtEzl6gt6kQnK9ON8oZ8bb1hPPcSLft44o8Cwzi72qNNiEHPjM95xl"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-label-md text-[11px] font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-secondary animate-pulse"></span> Ready / Siap Sewa
+                </span>
+<span class="px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-label-md text-[11px] font-semibold">SUV</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest/80 backdrop-blur-sm text-on-surface-variant font-label-md text-[11px] font-bold">2023</span>
+</div>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface leading-snug">Toyota Fortuner 2.8 VRZ 4x2</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-0.5">Pool Kuningan, Jakarta Selatan</p>
+<!-- Fitur Spesifikasi Chips -->
+<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-2.5 rounded-lg text-on-surface-variant font-label-md text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">airline_seat_recline_normal</span>
+<span class="">7 Kursi Lega</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">settings</span>
+<span class="">Matic 6-Speed</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">oil_barrel</span>
+<span class="">Diesel 2.8 Euro 4</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">sensor_door</span>
+<span class="">Power Backdoor</span>
+</div>
+</div>
+</div>
+<!-- Pricing & Action -->
+<div class="pt-3 flex flex-col gap-3">
+<div class="flex items-baseline justify-between"><div><span class="block uppercase font-semibold text-[11px] text-outline tracking-wider">Tarif Harian</span><div class="flex items-baseline gap-1 mt-0.5"><span class="text-[28px] font-bold text-secondary tracking-tight leading-none">Rp 1.500.000</span><span class="font-body-md text-body-md text-on-surface-variant font-normal">/ hari</span></div></div></div>
+<button class="w-full py-2.5 px-4 rounded-lg bg-secondary text-on-secondary font-body-md text-body-md font-semibold hover:bg-secondary-container transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm" type="button">
+<span class="">Pilih Mobil</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- ITEM 4: BMW E46 325i Motorsport -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 overflow-hidden group">
+<div class="relative w-full h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Classic pristine metallic silver BMW E46 325i Motorsport edition in immaculate collector condition, perfectly detailed paint, M-tech bodykit, BBS wheels, clean daylight architectural backdrop, premium vintage executive car aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLL8zjHgoOXvgSwFP8__NcsTyFsYB8ptqPgzAN4IQ9KvzLzG5lMNegXJXlTPOG9SWcYHl2jeqrRd6NcIidWMIF_jNXV1-PZ7RhUJS11dcuD6AhuMSuF1EhdPiyKArtKqehq09_Yx8bvwvIQvoGm9bv4TRdAccSSZfzYFhQWRYrhqloA1JYpR8Jwu08iVNvPes1t_b9tyHB2J1-_KZauN0GkoF8xIwr7qCWhfYETiamGS8jm0s4-Y1u"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-label-md text-[11px] font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-secondary animate-pulse"></span> Ready / Siap Sewa
+                </span>
+<span class="px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-label-md text-[11px] font-semibold">Classic Sedan</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest/80 backdrop-blur-sm text-on-surface-variant font-label-md text-[11px] font-bold">Collector Mint</span>
+</div>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface leading-snug">BMW E46 325i Motorsport</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-0.5">Pool Kuningan, Jakarta Selatan</p>
+<!-- Fitur Spesifikasi Chips -->
+<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-2.5 rounded-lg text-on-surface-variant font-label-md text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">airline_seat_recline_normal</span>
+<span class="">5 Leather Seat</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">swap_vert</span>
+<span class="">Matic Steptronic</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">speed</span>
+<span class="">6-Cylinder M54</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">music_note</span>
+<span class="">Harman Kardon</span>
+</div>
+</div>
+</div>
+<!-- Pricing & Action -->
+<div class="pt-3 flex flex-col gap-3">
+<div class="flex items-baseline justify-between"><div><span class="block uppercase font-semibold text-[11px] text-outline tracking-wider">Tarif Harian</span><div class="flex items-baseline gap-1 mt-0.5"><span class="text-[28px] font-bold text-secondary tracking-tight leading-none">Rp 850.000</span><span class="font-body-md text-body-md text-on-surface-variant font-normal">/ hari</span></div></div></div>
+<button class="w-full py-2.5 px-4 rounded-lg bg-secondary text-on-secondary font-body-md text-body-md font-semibold hover:bg-secondary-container transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm" type="button">
+<span class="">Pilih Mobil</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- ITEM 5: Hyundai Ioniq 5 Signature Long Range (2023) - TERBOOKING -->
+<article class="relative flex flex-col bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] opacity-85 overflow-hidden group">
+<!-- Overlay Semi-Transparan Watermark Terbooking -->
+<div class="absolute inset-0 bg-surface/60 backdrop-blur-[1.5px] z-20 pointer-events-none flex flex-col items-center justify-center p-4">
+<div class="px-4 py-2 rounded-xl bg-inverse-surface/90 text-inverse-on-surface text-center shadow-lg transform -rotate-2">
+<span class="material-symbols-outlined text-[20px] text-error-container block mx-auto mb-0.5">event_busy</span>
+<span class="font-headline-md text-[13px] font-bold tracking-tight block">Terbooking di Tanggal Ini</span>
+<span class="font-label-md text-[10px] text-surface-variant">Tersedia kembali mulai 18 Agu sore</span>
+</div>
+</div>
+<div class="relative w-full h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover filter grayscale-[30%]" data-alt="Futuristic matte gray Hyundai Ioniq 5 EV crossover electric vehicle in ultra-clean studio setting with geometric digital background lighting, parametric pixel headlights turned on, high dynamic range automotive photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj49-69-hXCbDa92Me6KVNpBQRyl2V5xvMkRkfL004-sHXyWMTy69slf5CqQKhSVelsIL0MsQ1dFPBAnB5QXfuHd-u1oISqZrH2522hwsVfHsNmUIjf_xsxUInqAXEXARASG3v6EdEXPxjrAITv12pb-7IjR0KlzDB9LiajS90Tcc3D9-Qm0Wbgan_77UkQKgtScr2OR6mUbDRXl33HAXAerytTFpf9ldKGZQJlOKfktUvie0cUWRG"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-dim text-on-surface-variant font-label-md text-[11px] font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Terbooking s/d 17 Agu
+                </span>
+<span class="px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface-variant font-label-md text-[11px] font-semibold">EV Compact</span>
+</div>
+<div class="absolute top-3 right-3 z-10">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest/80 backdrop-blur-sm text-on-surface-variant font-label-md text-[11px] font-bold">2023</span>
+</div>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface-variant leading-snug">Hyundai Ioniq 5 Signature LR</h3>
+<p class="font-label-md text-label-md text-outline mt-0.5">Pool Kuningan, Jakarta Selatan</p>
+<!-- Fitur Spesifikasi Chips -->
+<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-2.5 rounded-lg text-outline font-label-md text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">electric_car</span>
+<span class="">Jarak 481 km</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">airline_seat_recline_normal</span>
+<span class="">5 Kursi Relax</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">power</span>
+<span class="">Fitur V2L Port</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">wb_sunny</span>
+<span class="">Vision Roof</span>
+</div>
+</div>
+</div>
+<!-- Pricing & Action -->
+<div class="pt-3 flex flex-col gap-3 relative z-30">
+<div class="flex items-baseline justify-between opacity-70"><div><span class="block uppercase font-semibold text-[11px] text-outline tracking-wider">Tarif Harian</span><div class="flex items-baseline gap-1 mt-0.5"><span class="text-[28px] font-bold text-secondary tracking-tight leading-none">Rp 1.800.000</span><span class="font-body-md text-body-md text-on-surface-variant font-normal">/ hari</span></div></div></div>
+<div class="flex items-center justify-between text-[11px] font-label-md text-on-surface-variant bg-surface-container px-2.5 py-1.5 rounded-md">
+<span class="">Status Ketersediaan:</span>
+<span class="font-semibold text-error">Booked (Sewa Aktif)</span>
+</div>
+<button class="w-full py-2.5 px-4 rounded-lg bg-surface-container-high text-on-surface font-body-md text-body-md font-semibold hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span class="">Lihat Jadwal Bebas</span>
+</button>
+</div>
+</div>
+</article>
+<!-- ITEM 6: Toyota Alphard 2.5 G Transformer (2022) -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 overflow-hidden group">
+<div class="relative w-full h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Opulent jet black Toyota Alphard 2.5 G 2022 luxury MPV parked in a modern minimalist architectural atrium, chrome accents gleaming, captain chair cabin subtly visible through tinted glass, pristine VIP chauffeur rental aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJT7NtwP-Pq5v8rdgbEj4tgcWBrTnKDfxFDXFwX1k-vWyb6k-wtSxR6KzAfhcuhQDmbptoLBFxVP3ilen3SPBFzHpHKBuIIoj_WpgMboTjoZN4CjIqBVpG7Qm9-ZozEpuOA70UFyoYga8NgcWnFMb10gFZtmJDfgHi2Zi3oWEkUq-jkzXaEZ5mg04tnXNnw5yoGmaj8lW3pJ3bGrc0hvfVnAKYQCMJLVdM3jqWFqEDURxhYjHrz52O"/>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-label-md text-[11px] font-bold shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-on-secondary animate-pulse"></span> Ready / Siap Sewa
+                </span>
+<span class="px-2 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-label-md text-[11px] font-semibold">Luxury MPV</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="px-2 py-1 rounded-md bg-surface-container-highest/80 backdrop-blur-sm text-on-surface-variant font-label-md text-[11px] font-bold">2022</span>
+</div>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface leading-snug">Toyota Alphard 2.5 G Transformer</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-0.5">Pool Kuningan, Jakarta Selatan</p>
+<!-- Fitur Spesifikasi Chips -->
+<div class="grid grid-cols-2 gap-2 my-4 bg-surface-container-low p-2.5 rounded-lg text-on-surface-variant font-label-md text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">chair</span>
+<span class="">Pilot Captain Seat</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">window</span>
+<span class="">Dual Sunroof</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">meeting_room</span>
+<span class="">Power Sliding Door</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">tv</span>
+<span class="">Rear Entertainment</span>
+</div>
+</div>
+</div>
+<!-- Pricing & Action -->
+<div class="pt-3 flex flex-col gap-3">
+<div class="flex items-baseline justify-between"><div><span class="block uppercase font-semibold text-[11px] text-outline tracking-wider">Tarif Harian</span><div class="flex items-baseline gap-1 mt-0.5"><span class="text-[28px] font-bold text-secondary tracking-tight leading-none">Rp 2.500.000</span><span class="font-body-md text-body-md text-on-surface-variant font-normal">/ hari</span></div></div></div>
+<button class="w-full py-2.5 px-4 rounded-lg bg-secondary text-on-secondary font-body-md text-body-md font-semibold hover:bg-secondary-container transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm" type="button">
+<span class="">Pilih Mobil</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- 4. BOTTOM PAGINATION & GENERAL CHECKUP ASSURANCE -->
+<div class="flex flex-col gap-6 mt-4">
+<!-- Clean Desktop Pagination -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl bg-surface-container-lowest shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
+<span class="font-body-md text-[13px] text-on-surface-variant">
+              Menampilkan <span class="font-semibold text-on-surface">1 - 6</span> dari total <span class="font-semibold text-on-surface">18 armada aktif</span>
+</span>
+<div class="flex items-center gap-1.5">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-outline cursor-not-allowed font-body-md text-body-md flex items-center gap-1" disabled="" type="button">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+<span class="">Prev</span>
+</button>
+<button class="w-9 h-9 rounded-lg bg-primary text-on-primary font-body-md text-body-md font-bold shadow-sm" type="button">1</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-body-md text-body-md font-semibold transition-colors" type="button">2</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-body-md text-body-md font-semibold transition-colors" type="button">3</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-colors font-body-md text-body-md font-semibold flex items-center gap-1" type="button">
+<span class="">Next</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- PRD §11 Notice Box: Transparansi & Integritas Unit Teruji -->
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 backdrop-blur-sm shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">health_and_safety</span>
+</div>
+<div class="flex flex-col">
+<h4 class="font-headline-md text-body-md font-bold text-on-surface">Komitmen Transparansi &amp; 40-Point Pre-Delivery Check</h4>
+<p class="font-body-md text-[13px] text-on-surface-variant mt-0.5 leading-relaxed">
+                Semua mobil di atas menjalani general checkup rutin 40 titik sebelum diserahkan, termasuk kalibrasi tekanan angin ban, kondisi oli mesin, sistem rem, kesterilan AC, dan pembersihan kabin menyeluruh dengan disinfektan medis. Bebas biaya tersembunyi.
+              </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+<script>
+  // Filter Interactive Micro-actions
+  document.getElementById('reset-filter-btn')?.addEventListener('click', () => {
+    const checkboxes = document.querySelectorAll('aside input[type="checkbox"]');
+    checkboxes.forEach((cb, idx) => {
+      cb.checked = (idx === 0); // Keep primary checked
+    });
+  });
+</script></main><footer class="w-full bg-surface-container-low mt-16"><div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-16"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter"><div class="flex flex-col gap-base"><div class="flex items-center gap-base"><div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center font-headline-md text-body-lg font-bold">FE</div><span class="font-headline-md text-body-lg font-bold text-on-surface">FE Rent Car</span></div><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Layanan mobilitas dan sewa armada roda empat terpercaya di Jabodetabek. Mengutamakan transparansi harga, integritas unit terawat, dan standar kenyamanan premium tanpa kompromi.</p><div class="flex items-start gap-base mt-2 text-on-surface-variant"><span class="material-symbols-outlined text-[20px] shrink-0 text-primary">pin_drop</span><div class="font-body-md text-body-md leading-snug"><span class="font-semibold text-on-surface block">Kantor Operasional &amp; Pool Utama</span>Jl. Gatot Subroto Kav. 45, Kuningan Barat, Mampang Prapatan, Jakarta Selatan 12710</div></div></div><div class="flex flex-col gap-base"><h4 class="font-headline-md text-body-lg font-bold text-on-surface">Jam Layanan &amp; Darurat</h4><div class="space-y-3"><div class="p-3 rounded-lg bg-surface-container-lowest"><span class="font-label-md text-label-md uppercase text-on-surface-variant block mb-1">Layanan Pemesanan &amp; Pool</span><p class="font-body-md text-body-md font-semibold text-on-surface">Senin - Minggu: 07:00 - 22:00 WIB</p></div><div class="p-3 rounded-lg bg-surface-container-lowest"><span class="font-label-md text-label-md uppercase text-secondary block mb-1 font-semibold">Hotline Emergency Roadside 24 Jam</span><p class="font-body-md text-body-md font-semibold text-on-surface">Tersedia 24/7 non-stop untuk insiden teknis armada di jalan.</p></div></div></div><div class="flex flex-col gap-base"><h4 class="font-headline-md text-body-lg font-bold text-on-surface">Navigasi &amp; Pembayaran</h4><div class="flex flex-col gap-2 mb-3"><a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" data-path="katalog-armada" href="#">Katalog Armada Eksekutif &amp; MPV</a><a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" data-path="tata-cara-sewa" href="#">Persyaratan Sewa Lepas Kunci</a><a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" data-path="tata-cara-sewa" href="#">Fasilitas Driver Profesional</a><a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" data-path="cek-status" href="#">Lacak Reservasi Aktif</a></div><div class="p-3 rounded-lg bg-surface-container-lowest"><span class="font-label-md text-label-md uppercase text-on-surface-variant block mb-1 font-semibold">Rekening Resmi Perusahaan</span><p class="font-body-md text-body-md font-semibold text-on-surface">Bank Central Asia (BCA)</p><p class="font-body-md text-body-md font-mono text-on-surface">541-098-7201</p><p class="font-label-md text-label-md text-on-surface-variant mt-0.5">a.n. PT FE Rent Car Indonesia</p></div></div><div class="flex flex-col gap-base"><h4 class="font-headline-md text-body-lg font-bold text-on-surface">Kepatuhan &amp; Legalitas</h4><p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Data reservasi dan identitas penyewa diproses secara terenkripsi sesuai amanat Undang-Undang Perlindungan Data Pribadi (UU PDP No. 27/2022). Tidak ada penyalahgunaan data untuk pihak ketiga.</p><div class="flex flex-col gap-1.5 mt-2"><div class="flex items-center gap-1.5 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-secondary">verified_user</span><span class="font-label-md text-label-md">Asuransi All-Risk Komprehensif</span></div><div class="flex items-center gap-1.5 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-secondary">lock</span><span class="font-label-md text-label-md">Enkripsi Data KTP &amp; SIM 256-bit</span></div><div class="flex items-center gap-1.5 text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-secondary">description</span><span class="font-label-md text-label-md">Perjanjian Sewa Digital Sah &amp; Mengikat</span></div></div></div></div><div class="mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-base text-on-surface-variant"><p class="font-label-md text-label-md">© 2024 PT FE Rent Car Indonesia. Hak cipta dilindungi undang-undang.</p><div class="flex items-center gap-gutter font-label-md text-label-md"><a class="hover:text-on-surface transition-colors" data-path="kebijakan-privasi" href="#">Kebijakan Privasi</a><a class="hover:text-on-surface transition-colors" data-path="syarat-ketentuan" href="#">Syarat &amp; Ketentuan</a><a class="hover:text-on-surface transition-colors" data-path="kontak-bantuan" href="#">Pusat Bantuan</a></div></div></div></footer>
+</body></html>

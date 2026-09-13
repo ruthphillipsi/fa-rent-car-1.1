@@ -41,7 +41,8 @@ Urutan fase mengikuti `docs/prd.md` §13. Setiap task selesai harus punya: kode,
 - [ ] Error format seragam, logging, rate limit
 
 ### 0.5 Web skeleton
-- [ ] `apps/web-admin`: Next.js, layout, login page, guard route
+- [ ] `packages/ui`: Tailwind preset dari design.md + komponen dasar (Button, Badge, Card, StatCard, Input, Segmented, Table, Sidebar, Topbar, BottomTabBar)
+- [ ] `apps/web-admin`: Next.js, layout sidebar/topbar sesuai design.md, login page, guard route
 - [ ] `apps/web-customer`: Next.js, layout dasar
 - [ ] Client API bertipe (fetch wrapper + Zod)
 
@@ -88,10 +89,8 @@ Urutan fase mengikuti `docs/prd.md` §13. Setiap task selesai harus punya: kode,
 
 ## Fase 2 — Customer MVP
 
-> Diblokir sampai referensi UI/UX diterima (PRD §15 #1)
-
 ### 2.1 Publik
-- [!] Landing page
+- [ ] Landing page (ref: design.md §9 beranda)
 - [ ] API publik: daftar mobil tersedia + filter + urut
 - [ ] Halaman pencarian & katalog + filter
 - [ ] Detail mobil (galeri, spesifikasi, tarif, kalender)
@@ -196,4 +195,4 @@ Urutan fase mengikuti `docs/prd.md` §13. Setiap task selesai harus punya: kode,
 | 2026-09-13 | Ambil/kembali hanya di kantor |
 | 2026-09-13 | Customer tanpa akun; portal via token |
 | 2026-09-13 | Stack: NestJS + Next.js + Prisma + PostgreSQL |
-| 2026-09-13 | Contoh desain iOS-style putih/biru ditolak; menunggu referensi UI dari user |
+| 2026-09-13 | Contoh desain awal ditolak; referensi Stitch dari user diadopsi → `docs/design.md` |

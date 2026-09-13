@@ -5,6 +5,7 @@ Sistem rental mobil CV FA RENT CAR (Cirebon): Web Customer, Web Admin, satu back
 ## Dokumen
 
 - [docs/prd.md](docs/prd.md) — Product Requirements Document
+- [docs/design.md](docs/design.md) — Sistem desain (token, komponen, referensi layar)
 - [docs/task.md](docs/task.md) — Daftar task per fase
 - [docs/rules.md](docs/rules.md) — Aturan pengembangan (wajib dibaca sebelum coding)
 

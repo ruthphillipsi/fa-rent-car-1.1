@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"outline-variant":"#cfc4c5","on-primary-fixed-variant":"#474747","on-secondary-fixed-variant":"#003ab1","inverse-surface":"#2e3132","on-tertiary-container":"#2a87dd","inverse-primary":"#c6c6c6","surface-bright":"#f8f9fb","on-error":"#ffffff","primary":"#000000","inverse-on-surface":"#f0f1f3","on-surface":"#191c1e","surface-tint":"#5e5e5e","secondary":"#184fd6","on-surface-variant":"#4c4546","secondary-fixed-dim":"#b6c4ff","surface-container-low":"#f2f4f6","on-primary-container":"#848484","surface-container-lowest":"#ffffff","tertiary":"#000000","secondary-container":"#3d6af0","tertiary-container":"#001c38","surface-variant":"#e1e2e4","primary-fixed-dim":"#c6c6c6","on-secondary-fixed":"#00164f","on-secondary":"#ffffff","surface-container-highest":"#e1e2e4","secondary-fixed":"#dce1ff","tertiary-fixed":"#d3e4ff","primary-fixed":"#e2e2e2","error":"#ba1a1a","surface":"#f8f9fb","tertiary-fixed-dim":"#a1c9ff","primary-container":"#1b1b1b","on-primary-fixed":"#1b1b1b","surface-container":"#edeef0","outline":"#7e7576","on-tertiary-fixed":"#001c38","on-primary":"#ffffff","on-background":"#191c1e","on-tertiary-fixed-variant":"#004880","on-tertiary":"#ffffff","surface-dim":"#d9dadc","error-container":"#ffdad6","on-secondary-container":"#fffbff","on-error-container":"#93000a","background":"#f8f9fb","surface-container-high":"#e7e8ea"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"24px","margin-desktop":"64px","container-max":"1280px","margin-mobile":"20px","base":"8px"},fontFamily:{"headline-lg-mobile":["Inter"],"label-md":["Inter"],"body-lg":["Inter"],"body-md":["Inter"],"display-lg":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"]},fontSize:{"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"21px","letterSpacing":"0","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"60px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}]}}}};</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin-mobile flex items-center justify-between gap-base"><div class="flex flex-col min-w-0 justify-center"><div class="flex items-center gap-1.5"><span class="font-headline-md text-headline-md text-primary tracking-tight font-bold leading-none">FE Rent Car</span><span class="px-1.5 py-0.5 rounded bg-primary text-on-primary font-label-md text-[10px] tracking-wider uppercase font-semibold leading-none">OPS HUB</span></div><div class="flex items-center gap-1 mt-0.5 text-on-surface-variant"><span class="material-symbols-outlined text-[14px] text-secondary">location_on</span><span class="font-label-md text-label-md font-medium text-on-surface-variant truncate max-w-[140px]">Cabang Jakarta Pusat</span><span class="material-symbols-outlined text-[14px] text-on-surface-variant">expand_more</span></div></div><div class="flex items-center gap-1"><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors text-on-surface"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Sticky Subheader / Search & Filter Section -->
+<section class="bg-surface-container-lowest shadow-[0_4px_16px_rgba(0,0,0,0.03)] px-margin-mobile pt-4 pb-4">
+<div class="flex items-center justify-between gap-2 mb-3">
+<div class="flex flex-col">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">Manajemen Booking</span>
+<span class="font-label-md text-label-md text-on-surface-variant mt-0.5">Verifikasi Identitas &amp; Pembayaran</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[15px] text-secondary">verified</span>
+<span>6 Butuh Review</span>
+</div>
+</div>
+<!-- Search Input with Filter Button -->
+<div class="flex items-center gap-2.5 mb-3">
+<div class="relative flex-1 flex items-center bg-surface-container-low rounded-xl px-3.5 py-2.5">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] mr-2">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline outline-none" placeholder="Cari No. Invoice / NIK / Nama / Telp" type="text"/>
+</div>
+<button class="w-11 h-11 rounded-xl bg-surface-container-low text-on-surface flex items-center justify-center hover:bg-surface-container transition-colors shadow-sm relative flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-secondary"></span>
+</button>
+</div>
+<!-- Quick Date Range & Filter Pills -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md whitespace-nowrap shadow-sm hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[15px] text-secondary">calendar_today</span>
+<span>09 Ags 2026 - 15 Ags 2026</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">expand_more</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md whitespace-nowrap shadow-sm hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant">directions_car</span>
+<span>Tipe: Semua Unit</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md whitespace-nowrap shadow-sm hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant">account_balance</span>
+<span>Metode: BCA Virtual</span>
+</button>
+</div>
+<!-- Status Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-3.5">
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap">
+<span>Semua</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-on-surface-variant text-[11px]">342</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-secondary text-on-secondary font-label-md text-label-md whitespace-nowrap shadow-sm">
+<span class="material-symbols-outlined text-[15px]">pending_actions</span>
+<span>Menunggu Konfirmasi</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-lowest text-secondary font-bold text-[11px]">6</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap">
+<span>Aktif / Dirental</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-on-surface-variant text-[11px]">42</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap">
+<span>Selesai</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-on-surface-variant text-[11px]">280</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap">
+<span>Dibatalkan</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-highest text-on-surface-variant text-[11px]">12</span>
+</button>
+</div>
+</section>
+<!-- Content Stream: Active Queue Inspection Item -->
+<div class="px-margin-mobile py-5 space-y-4">
+<!-- Quick Notice Card: Priority Attention -->
+<div class="p-3.5 rounded-2xl bg-secondary-fixed/50 flex items-center justify-between gap-3 shadow-sm">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md font-semibold text-on-secondary-fixed truncate">Antrean Prioritas #1</span>
+<span class="font-label-md text-label-md text-on-secondary-fixed-variant truncate">Jadwal pickup hari ini pukul 15:00 WIB</span>
+</div>
+</div>
+<span class="font-label-md text-label-md px-2.5 py-1 rounded-md bg-secondary text-on-secondary font-bold whitespace-nowrap">1/6 Ready</span>
+</div>
+<!-- MAIN ACTIVE BOOKING CARD -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden">
+<!-- Card Header -->
+<div class="p-4 bg-surface-container-low/70">
+<div class="flex items-center justify-between gap-2 mb-2">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">INV-20260809-091</span>
+<span class="px-2 py-0.5 rounded-md bg-primary text-on-primary font-label-md text-[10px] tracking-wide font-bold uppercase">MULTI-CAR</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1.5 text-error font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Sisa Waktu: 01:24:18</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Dibuat: 09 Ags, 13:30</span>
+</div>
+</div>
+<!-- Customer Overview Box & Details -->
+<div class="p-4 space-y-4">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center flex-shrink-0 text-primary font-bold font-headline-md text-headline-md">
+              RP
+            </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-lg text-body-lg font-bold text-on-surface truncate">Rian Perdana Putra</span>
+<span class="material-symbols-outlined text-secondary text-[16px]" title="Identitas Terdaftar">verified</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant mt-0.5">+62 812-9842-1920</span>
+</div>
+</div>
+<a class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors shadow-sm flex-shrink-0" href="https://wa.me/6281298421920" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[18px] text-secondary">chat</span>
+<span>Hubungi WA</span>
+</a>
+</div>
+<!-- Trust & Risk Assessment Badge -->
+<div class="p-3 rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px]">shield</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Skor Risiko: Bersih / Sangat Aman</span>
+<span class="font-label-md text-[11px] text-on-surface-variant mt-0.5">4x Transaksi Sukses • 0 Insiden • Profil Terverifikasi</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">verified_user</span>
+</div>
+<!-- Units Booked Carousel / Cards -->
+<div class="pt-1">
+<div class="flex items-center justify-between mb-2.5">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Unit Armada Dipesan (2 Mobil)</span>
+<span class="font-label-md text-[11px] text-secondary font-bold">2 Hari Penuh</span>
+</div>
+<div class="space-y-3">
+<!-- Car 1 -->
+<div class="p-3.5 rounded-xl bg-surface-container-low flex items-center gap-3">
+<div class="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Side angle photo of a luxury black BMW 325i sedan parked inside a clean modern showroom with soft studio reflections, automotive photography, neutral aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2Ffzf09aDw8JGwaspZXDAiuGaPa4wlDrxfHlnbSm4Ab2jaKNQ5zE72Vmt4IOjdwX-OEeQm9jkiRi2jUYDYr4o3yP5KzC3OLczLArQRRs32aZBrS8evR0YjjW61ExwVeBoe1aWz1dse4wF8O5q2f-Q7GOKD9KDu3BUU-JR7-FtmSQTRuzeb8NBguuLv4tl4VRjPwzOFlsTttjmSxXs-yf9wl4ZMdxQextu8em8OfBkq_tEMQhjuS8C"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-2">
+<span class="font-body-md text-body-md font-bold text-on-surface truncate">BMW E46 325i MT</span>
+<span class="font-label-md text-label-md px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-mono flex-shrink-0">B 1846 FE</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md text-[11px] mt-1">
+<span>Lepas Kunci</span>
+<span>•</span>
+<span>Odo: 84.120 km</span>
+<span>•</span>
+<span class="text-secondary font-semibold">Tersedia di Pool</span>
+</div>
+</div>
+</div>
+<!-- Car 2 -->
+<div class="p-3.5 rounded-xl bg-surface-container-low flex items-center gap-3">
+<div class="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Front three-quarter view of a pearl white Toyota Avanza MPV parked under warm morning sunlight, crisp corporate car rental photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEQrmxpkH4tb2McN6yvjax1Fe6tzBOHZvhb5j3qlpGFqDuY8uawPuHy5YB3SHAoOzdUGXyaN3MSf3OPE4U8DZm7srdgHMeHb04OBaqL51b2sTvOx3_rfW0eOWaCar_7z4MgldwzIoIjtbMWvzLOY3SpO8Syy73ChPyX6FO31EYB2N0KND3rO3plNL9ZAQonRaHBY4plpuPSjj75MVoqkP8nXmIVC76YPh53LZ_7XAkD1d3Hq406Lyt"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-2">
+<span class="font-body-md text-body-md font-bold text-on-surface truncate">Toyota Avanza 1.5 G AT</span>
+<span class="font-label-md text-label-md px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-mono flex-shrink-0">B 2910 UXZ</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-md text-[11px] mt-1">
+<span>Dengan Sopir</span>
+<span>•</span>
+<span>Odo: 31.450 km</span>
+<span>•</span>
+<span class="text-secondary font-semibold">Sopir: Pak Hendra</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Billing Summary Mini-Banner -->
+<div class="p-4 rounded-xl bg-surface-container flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Total Tagihan Booking</span>
+<span class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight mt-0.5">Rp 3.900.000</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-bold">Bukti Terunggah</span>
+<span class="font-label-md text-[11px] text-on-surface-variant mt-1">Deposit: Rp 500.000 Included</span>
+</div>
+</div>
+</div>
+</div>
+<!-- PANEL A: VERIFIKASI DOKUMEN IDENTITAS -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+<div class="flex items-center justify-between pb-3.5">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-xl bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-bold text-on-surface">Panel A: Verifikasi Dokumen</span>
+<span class="font-label-md text-label-md text-on-surface-variant mt-0.5">Enkripsi AES-256 Aktif</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-surface-container text-on-surface-variant font-label-md text-[11px] font-semibold">2 Dokumen</span>
+</div>
+<!-- Space between documents -->
+<div class="space-y-4">
+<!-- Document 1: KTP -->
+<div class="p-3.5 rounded-xl bg-surface-container-low space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">credit_card</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">KTP Asli Elektronik</span>
+</div>
+<span class="font-label-md text-[11px] px-2.5 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-semibold">OCR Cocok 99.4%</span>
+</div>
+<!-- Watermarked Encrypted Preview Container -->
+<div class="relative w-full h-36 rounded-xl overflow-hidden bg-surface-container flex items-center justify-center shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Government issued Indonesian identity card KTP with secure hologram watermark overlay on a clean scanner bed, crisp details, strictly simulated compliance testing template, neutral tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBi5fBhChRSXU4gDN5iS24z5Woh0k9cSqfyB8w_9mpFM3Z22NUFQlr_IJJPCUmjHq0qDdQjnozByS_tNizzWrOv2mHLEXHgKrqiENj3885_8iFY-Y5MP79kuhDs2ExOkNWCZRXUxqF0Rq2MeQygtexd4IFoQgGvDPpJhLQUsEn0Z4vUWdd86PaU9y-uVAYDBHrfG4_OOoFpUQoBZUu-I2PAlfd7FDkzC701sm5jyi07i3NIH9zQV5b"/>
+<div class="absolute inset-0 bg-primary/20 backdrop-blur-[1px] flex flex-col items-center justify-center p-3 text-center">
+<span class="material-symbols-outlined text-on-primary text-[28px] drop-shadow-md">lock</span>
+<span class="font-label-md text-label-md text-on-primary font-bold uppercase tracking-wider drop-shadow-sm mt-0.5">FE RENT CAR SECURITY WATERMARK</span>
+<span class="font-label-md text-[10px] text-on-primary/80">Akses Terbatas Petugas Admin • Tap untuk Perbesar</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg space-y-1.5">
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">NIK Pemesan:</span>
+<span class="font-mono font-bold text-on-surface">3174092408930004</span>
+</div>
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Nama Lengkap:</span>
+<span class="font-bold text-on-surface uppercase">Rian Perdana Putra</span>
+</div>
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Alamat KTP:</span>
+<span class="text-on-surface truncate max-w-[200px]">Tebet Barat, Jakarta Selatan</span>
+</div>
+</div>
+<!-- Verification Actions -->
+<div class="grid grid-cols-2 gap-3 pt-1" id="ktp-actions">
+<button class="py-2.5 px-3.5 rounded-xl bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-secondary-container transition-all" onclick="document.getElementById('ktp-status').classList.remove('hidden'); document.getElementById('ktp-actions').classList.add('hidden');">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Setujui KTP</span>
+</button>
+<button class="py-2.5 px-3.5 rounded-xl bg-surface-container text-error font-label-md text-label-md font-bold flex items-center justify-center gap-2 hover:bg-error-container transition-all">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+<span>Tolak KTP</span>
+</button>
+</div>
+<div class="hidden p-2.5 rounded-lg bg-surface-container text-secondary flex items-center justify-center gap-2 font-label-md text-label-md font-bold" id="ktp-status">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>KTP Berhasil Disetujui &amp; Tervalidasi</span>
+</div>
+</div>
+<!-- Document 2: SIM A -->
+<div class="p-3.5 rounded-xl bg-surface-container-low space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">drive_eta</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">SIM A Pribadi Aktif</span>
+</div>
+<span class="font-label-md text-[11px] px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">Masa Berlaku: 2029</span>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg space-y-1.5">
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Nomor Registrasi SIM:</span>
+<span class="font-mono font-bold text-on-surface">930812930214</span>
+</div>
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Golongan Kendaraan:</span>
+<span class="font-bold text-on-surface">SIM A (Mobil Penumpang)</span>
+</div>
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Penerbit Korlantas:</span>
+<span class="text-on-surface">Polda Metro Jaya</span>
+</div>
+</div>
+<!-- Verification Actions -->
+<div class="grid grid-cols-2 gap-3 pt-1" id="sim-actions">
+<button class="py-2.5 px-3.5 rounded-xl bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-secondary-container transition-all" onclick="document.getElementById('sim-status').classList.remove('hidden'); document.getElementById('sim-actions').classList.add('hidden');">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Setujui SIM</span>
+</button>
+<button class="py-2.5 px-3.5 rounded-xl bg-surface-container text-error font-label-md text-label-md font-bold flex items-center justify-center gap-2 hover:bg-error-container transition-all">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+<span>Tolak SIM</span>
+</button>
+</div>
+<div class="hidden p-2.5 rounded-lg bg-surface-container text-secondary flex items-center justify-center gap-2 font-label-md text-label-md font-bold" id="sim-status">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>SIM A Sah &amp; Memenuhi Syarat</span>
+</div>
+</div>
+</div>
+</div>
+<!-- PANEL B: REKONSILIASI BANK & MUTASI BCA -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+<div class="flex items-center justify-between pb-3.5">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-xl bg-secondary text-on-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg font-bold text-on-surface">Panel B: Rekonsiliasi Bank</span>
+<span class="font-label-md text-label-md text-on-surface-variant mt-0.5">Sinkronisasi Realtime API BCA</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-[11px] font-bold">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+<span>100% Cocok (LUNAS)</span>
+</div>
+</div>
+<!-- Reconciliation Matrix Comparison -->
+<div class="p-3.5 rounded-xl bg-surface-container-low space-y-3">
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Column 1: System Invoice -->
+<div class="p-3 rounded-lg bg-surface-container-lowest">
+<span class="font-label-md text-[11px] text-on-surface-variant block mb-1">Total di Tagihan:</span>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Rp 3.900.000</span>
+<span class="font-label-md text-[10px] text-on-surface-variant block mt-1">Kode Unik: #091</span>
+</div>
+<!-- Column 2: Bank Mutation Match -->
+<div class="p-3 rounded-lg bg-surface-container-lowest">
+<span class="font-label-md text-[11px] text-secondary font-semibold block mb-1">Mutasi Masuk BCA:</span>
+<span class="font-headline-md text-headline-md font-bold text-secondary">Rp 3.900.000</span>
+<span class="font-label-md text-[10px] text-on-surface-variant block mt-1">09 Ags • 13:45 WIB</span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container flex items-center justify-between text-on-surface font-label-md text-label-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">account_balance_wallet</span>
+<span>BCA Rek: 821-002-9182 (FE RENT)</span>
+</div>
+<span class="font-mono text-on-surface-variant font-medium">CR • VA AUTOMATED</span>
+</div>
+<!-- Transfer Proof Thumbnail Inspection -->
+<div class="flex items-center gap-3.5 p-2.5 rounded-xl bg-surface-container-lowest">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden relative flex-shrink-0 cursor-pointer shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Official mobile banking screenshot of a successful transfer receipt with stamp and reference number on sleek smartphone screen, corporate blue and white branding" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVV0GBOFnPSqMcBbbEFfKe3_QrE9SoNdpUtodiZt8c5PFyGJzPjV-63pHDMJRATv8Vgw0NijPwKoIVPQt6bb0Ze-iPGW1i1HpC8c0B3JcB3wkE-P9OHNlXI1OimXEeXwihTg1b6w3c9cQjK0Oiiq_ekxtDa4GpN9ov65BNowvY_4ASbhoiHPO_XZ4wKS5kcDuXPU25vUZCjRTrbLmQErFS5M5isu6Nw45FOg-TfeiaB6-No-ON-FTT"/>
+<div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[20px]">zoom_in</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-body-md text-body-md font-bold text-on-surface block truncate">Bukti_Transfer_091.jpg</span>
+<span class="font-label-md text-[11px] text-on-surface-variant block mt-0.5">Ukuran: 1.2 MB • Metadata Valid</span>
+<button class="font-label-md text-label-md text-secondary font-semibold hover:underline mt-1 flex items-center gap-1">
+<span>Buka Layar Penuh</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- FLOATING / STICKY BOTTOM ACTION BAR -->
+<div class="sticky bottom-0 z-40 bg-surface-container-lowest shadow-[0_-4px_24px_rgba(0,0,0,0.08)] px-margin-mobile pt-3 pb-3">
+<!-- Mandatory Checklist Badges -->
+<div class="flex items-center justify-between gap-1.5 overflow-x-auto no-scrollbar pb-2.5">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-label-md text-[11px] font-semibold whitespace-nowrap">
+<span class="material-symbols-outlined text-secondary text-[14px]">check_circle</span>
+<span>Dana 100% Lunas</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-label-md text-[11px] font-semibold whitespace-nowrap">
+<span class="material-symbols-outlined text-secondary text-[14px]">check_circle</span>
+<span>Bukti Transfer Sah</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-label-md text-[11px] font-semibold whitespace-nowrap">
+<span class="material-symbols-outlined text-secondary text-[14px]">check_circle</span>
+<span>KTP &amp; SIM Lolos</span>
+</div>
+</div>
+<!-- Primary Final Action CTA -->
+<button class="w-full py-3.5 px-4 rounded-xl bg-secondary text-on-secondary font-headline-md text-headline-md font-bold flex items-center justify-center gap-2.5 shadow-md hover:bg-secondary-container active:scale-[0.99] transition-all" id="activate-booking-btn">
+<span class="material-symbols-outlined text-[22px]">key</span>
+<span>Aktifkan Booking &amp; Kunci Armada</span>
+</button>
+<!-- Secondary Management Action Row -->
+<div class="grid grid-cols-3 gap-2.5 mt-2.5">
+<button class="py-2.5 px-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>Cetak PDF</span>
+</button>
+<button class="py-2.5 px-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+<span>Koreksi</span>
+</button>
+<button class="py-2.5 px-2 rounded-lg bg-surface-container text-error font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 hover:bg-error-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">block</span>
+<span>Batalkan</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interaction for final booking activation
+  const activateBtn = document.getElementById('activate-booking-btn');
+  if (activateBtn) {
+    activateBtn.addEventListener('click', function () {
+      this.classList.remove('bg-secondary');
+      this.classList.add('bg-primary');
+      this.innerHTML = `
+        <span class="material-symbols-outlined text-[22px]">check_circle</span>
+        <span>Armada Terkunci & Status Dirental!</span>
+      `;
+      setTimeout(() => {
+        alert('Booking INV-20260809-091 berhasil diaktifkan. Notifikasi dan SPK digital telah dikirimkan ke penyewa dan divisi operasional pool.');
+      }, 200);
+    });
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-secondary font-semibold"><div class="flex justify-between items-center h-16 px-2"><a class="flex flex-col items-center justify-center gap-0.5 w-16 h-11 rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-md text-label-md leading-none">Dashboard</span></a><a class="flex flex-col items-center justify-center gap-0.5 w-16 h-11 rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="armada" href="#"><span class="material-symbols-outlined text-[22px]">directions_car</span><span class="font-label-md text-label-md leading-none">Armada</span></a><a aria-current="page" class="relative flex flex-col items-center justify-center gap-0.5 w-16 h-11 rounded-lg transition-all text-secondary font-semibold" data-path="booking" href="#"><span class="relative"><span class="material-symbols-outlined text-[22px]">calendar_month</span><span class="absolute -top-1 -right-2 px-1 min-w-[16px] h-4 rounded-full bg-secondary text-on-secondary font-label-md text-[10px] flex items-center justify-center leading-none font-bold">6</span></span><span class="font-label-md text-label-md leading-none">Booking</span></a><a class="flex flex-col items-center justify-center gap-0.5 w-16 h-11 rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="verifikasi" href="#"><span class="material-symbols-outlined text-[22px]">verified_user</span><span class="font-label-md text-label-md leading-none">Verifikasi</span></a><a class="flex flex-col items-center justify-center gap-0.5 w-16 h-11 rounded-lg text-on-surface-variant hover:text-on-surface transition-all" data-path="menu" href="#"><span class="material-symbols-outlined text-[22px]">more_horiz</span><span class="font-label-md text-label-md leading-none">Menu</span></a></div></nav></body></html>

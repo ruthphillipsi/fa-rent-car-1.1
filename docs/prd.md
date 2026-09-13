@@ -255,7 +255,7 @@ Detail skema didefinisikan di `packages/db/prisma/schema.prisma` pada Fase 1.
 
 | # | Pertanyaan | Pemilik | Batas |
 |---|---|---|---|
-| 1 | Referensi UI/UX (gaya visual) | User | Sebelum Fase 2 |
+| 1 | ~~Referensi UI/UX~~ — selesai, lihat `docs/design.md` | — | — |
 | 2 | Vendor/perangkat GPS | User | Sebelum Fase 4 |
 | 3 | Rekening bank & template pesan WhatsApp | User | Sebelum Fase 2 |
 | 4 | Hosting/VPS & domain | User | Sebelum deploy |

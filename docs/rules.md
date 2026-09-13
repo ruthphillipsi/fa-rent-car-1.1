@@ -1,16 +1,16 @@
 # Rules — Aturan Pengembangan FA RENT CAR
 
-Dokumen ini mengikat semua pengerjaan di repo ini (manusia maupun AI agent). Jika ada konflik, urutan prioritas: **rules.md → prd.md → task.md → kode yang ada**.
+Dokumen ini mengikat semua pengerjaan di repo ini (manusia maupun AI agent). Jika ada konflik, urutan prioritas: **rules.md → prd.md → design.md → task.md → kode yang ada**.
 
 ---
 
 ## 1. Alur kerja
 
-1. Baca `docs/prd.md` dan `docs/task.md` sebelum mulai.
+1. Baca `docs/prd.md`, `docs/design.md`, dan `docs/task.md` sebelum mulai.
 2. Kerjakan task sesuai urutan fase. Jangan lompat fase tanpa persetujuan user.
 3. Tandai task `[~]` saat mulai, `[x]` saat selesai (kode + test + dokumen), `[!]` jika diblokir beserta alasannya.
 4. Satu PR = satu task atau satu kelompok task kecil yang saling terkait. PR harus bisa direview dalam < 15 menit.
-5. Jangan mulai implementasi UI customer (Fase 2) sebelum referensi desain dari user diterima.
+5. Semua UI mengikuti `docs/design.md` (token, komponen, penyesuaian brand). Layar tanpa referensi dibuat sesuai sistem itu lalu dimintakan persetujuan user via screenshot.
 6. Setiap keputusan arsitektur yang tidak tercantum di PRD dicatat di `docs/adr/NNNN-judul.md` (konteks, keputusan, konsekuensi) dan di tabel "Catatan keputusan" `task.md`.
 7. Jika PRD tidak menjawab suatu pertanyaan bisnis, **tanya user**; jangan mengasumsikan aturan bisnis (harga, refund, syarat).
 
@@ -68,7 +68,7 @@ Dokumen ini mengikat semua pengerjaan di repo ini (manusia maupun AI agent). Jik
 ## 7. Frontend
 
 - Next.js App Router, Server Components default; Client Component hanya jika perlu interaksi.
-- Tailwind CSS; token desain (warna, radius, spacing) di satu tempat (`tailwind.config` / CSS variables). **Jangan membuat gaya visual sebelum referensi desain user diterima**; sampai saat itu pakai komponen fungsional polos.
+- Tailwind CSS; token desain hanya dari preset bersama `packages/ui` yang diturunkan dari `docs/design.md`. Jangan hardcode hex di komponen. Komponen dasar dipakai dari `packages/ui`, bukan dibuat ulang per app.
 - Semua teks UI bahasa Indonesia, format `Rp 1.200.000`, tanggal `Sen, 15 Sep 2026 · 09:00 WIB`.
 - Wajib responsive 360px–1440px; uji di viewport mobile sebelum PR.
 - Aksesibilitas dasar: label pada input, kontras cukup, fokus terlihat, tombol punya teks/aria-label.
@@ -117,3 +117,4 @@ Dokumen ini mengikat semua pengerjaan di repo ini (manusia maupun AI agent). Jik
 - ❌ Menyimpan uang sebagai float.
 - ❌ Hard delete booking, invoice, pembayaran.
 - ❌ Menaruh logika harga di frontend selain memanggil `packages/shared`.
+- ❌ Menampilkan field deposit, pemilih cabang, atau lokasi antar-jemput dari referensi desain (lihat design.md §7).
