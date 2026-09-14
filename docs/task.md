@@ -35,21 +35,21 @@ Urutan fase mengikuti `docs/prd.md` §13. Setiap task selesai harus punya: kode,
 
 ### 0.4 API skeleton (`apps/api`)
 
-- [~] NestJS bootstrap, config module, validasi global (Zod pipe)
-- [~] Prisma service, health check
-- [~] Auth admin: login, refresh, logout, hash bcrypt — termasuk rotasi/replay, race logout/refresh, pencabutan user, dan koordinasi antartab.
-- [~] RBAC guard: `staff`, `superadmin`
+- [x] NestJS bootstrap, config module, validasi global (Zod pipe)
+- [x] Prisma service, health check
+- [x] Auth admin: login, refresh, logout, hash bcrypt — termasuk rotasi/replay, race logout/refresh, pencabutan user, dan koordinasi antartab.
+- [x] RBAC guard: `staff`, `superadmin`
 - [~] Modul storage: upload signed URL, akses privat — staging privat; endpoint upload domain dan pemeriksaan isi file belum diaktifkan.
-- [~] Modul audit log (service dalam transaksi untuk aksi sensitif; metadata request tanpa data pribadi), lihat ADR 0002.
-- [~] BullMQ + Redis: queue dasar, scheduler — job expiry booking belum tersedia sebelum Fase 1.
-- [~] Error format seragam, logging, rate limit
+- [x] Modul audit log (service dalam transaksi untuk aksi sensitif; metadata request tanpa data pribadi), lihat ADR 0002.
+- [x] BullMQ + Redis: queue dasar, scheduler — job expiry booking belum tersedia sebelum Fase 1.
+- [x] Error format seragam, logging, rate limit
 
 ### 0.5 Web skeleton
 
-- [~] `packages/ui`: Tailwind preset dari design.md + komponen dasar (Button, Badge, Card, StatCard, Input, Segmented, Table, Sidebar, Topbar, BottomTabBar)
-- [~] `apps/web-admin`: Next.js, layout sidebar/topbar sesuai design.md, login page, guard route — pencarian/paginasi armada baca-saja, status layanan, profil, dan logout diuji pada 1440/390/360 px.
-- [~] `apps/web-customer`: Next.js, layout dasar — informasi usaha dan kontak resmi; bukan landing/katalog pemesanan Fase 2.
-- [~] Client API bertipe (fetch wrapper + Zod)
+- [x] `packages/ui`: Tailwind preset dari design.md + komponen dasar (Button, Badge, Card, StatCard, Input, Segmented, Table, Sidebar, Topbar, BottomTabBar)
+- [x] `apps/web-admin`: Next.js, layout sidebar/topbar sesuai design.md, login page, guard route — pencarian/paginasi armada baca-saja, status layanan, profil, dan logout diuji pada 1440/390/360 px.
+- [x] `apps/web-customer`: Next.js, layout dasar — informasi usaha dan kontak resmi; bukan landing/katalog pemesanan Fase 2.
+- [x] Client API bertipe (fetch wrapper + Zod)
 - [ ] Persetujuan visual user untuk layar tanpa referensi langsung (login, armada baca-saja, status/profil, dan halaman informasi customer sementara). Bukti screenshot dilampirkan pada PR UI; belum dianggap desain final.
 
 ---
@@ -219,3 +219,4 @@ Urutan fase mengikuti `docs/prd.md` §13. Setiap task selesai harus punya: kode,
 | 2026-09-13 | Stack: NestJS + Next.js + Prisma + PostgreSQL                                                                                      |
 | 2026-09-13 | Contoh desain awal ditolak; referensi Stitch dari user diadopsi → `docs/design.md`                                                 |
 | 2026-09-13 | Irisan awal Fase 0 dibatasi pada fondasi dan sesi admin nyata; modul rental tidak dipalsukan → `docs/adr/0001-foundation-slice.md` |
+| 2026-09-13 | Rotasi keluarga sesi, CSRF, dan audit dalam transaksi database → `docs/adr/0002-admin-session-security.md`                         |

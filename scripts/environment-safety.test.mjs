@@ -1,6 +1,14 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
 import { tmpdir } from 'node:os';
@@ -90,6 +98,17 @@ test('Compose project names are stable per canonical workspace and differ across
   assert.equal(composeProjectName(firstWorkspace), firstName);
   assert.notEqual(composeProjectName(secondWorkspace), firstName);
   assert.match(firstName, /^fa-rent-car-[a-f0-9]{12}$/u);
+});
+
+test('Compose MinIO uses the public upstream registry and pins the same release as native mode', () => {
+  const compose = readFileSync(new URL('../compose.yaml', import.meta.url), 'utf8');
+  const native = readFileSync(new URL('./native-services.sh', import.meta.url), 'utf8');
+  const image = compose.match(/^ {2}minio:\n {4}image: (\S+)$/mu)?.[1] ?? '';
+  const release = native.match(/^MINIO_VERSION="([^"]+)"$/mu)?.[1];
+
+  assert.ok(release, 'Native MinIO must use an explicit release.');
+  assert.match(image, /^quay\.io\/minio\/minio:RELEASE\.[^@]+@sha256:[a-f0-9]{64}$/u);
+  assert.ok(image.startsWith(`quay.io/minio/minio:${release}@`));
 });
 
 for (const script of ['setup.sh', 'dev.sh']) {
