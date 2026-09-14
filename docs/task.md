@@ -23,8 +23,8 @@ Urutan fase mengikuti `docs/prd.md` §13. Setiap task selesai harus punya: kode,
 - [~] Prisma schema lengkap sesuai PRD §12 — schema awal admin/sesi/audit/armada/pengaturan; model booking dan operasional menyusul.
 - [~] Enum: status booking, dokumen, pembayaran, peran, status mobil — peran dan mobil sudah diimplementasikan.
 - [~] Constraint: unik plat, unik nomor invoice, index tanggal booking — plat unik dan indeks fondasi; invoice/booking belum tersedia.
-- [~] Migrasi awal — diuji dari schema PostgreSQL kosong dan pemeriksaan constraint/audit.
-- [~] Seed: superadmin, 5 mobil contoh, tarif, pengaturan default — idempotent; tidak menimpa admin atau mobil yang telah diedit.
+- [x] Migrasi awal — diuji dari schema PostgreSQL kosong dan pemeriksaan constraint/audit.
+- [x] Seed: superadmin, 5 mobil contoh, tarif, pengaturan default — idempotent; tidak menimpa admin atau mobil yang telah diedit.
 
 ### 0.3 Shared (`packages/shared`)
 

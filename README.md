@@ -8,9 +8,10 @@ Sistem rental mobil CV FA RENT CAR (Cirebon), dikembangkan bertahap sesuai
 
 Lapisan ini menyediakan pnpm/Turborepo, TypeScript strict, lint/format/CI, bootstrap layanan
 lokal yang aman, dan `packages/shared`: kontrak Zod, client API tervalidasi, formatter
-Rupiah/WIB, serta optimizer paket harga eksplisit. Schema database, API admin, dan kedua web
-dikirim pada PR lanjutan dalam stack yang sama. **Belum ada aplikasi login atau booking
-pada revisi ini.** Lihat [ADR 0001](docs/adr/0001-foundation-slice.md) untuk batas lingkup.
+Rupiah/WIB, serta optimizer paket harga eksplisit. `packages/db` menyediakan schema admin,
+sesi, audit append-only, armada/foto/tarif, dan pengaturan; migrasi dan seed idempotent tersedia.
+API admin dan kedua web dikirim pada PR lanjutan dalam stack yang sama. **Belum ada aplikasi
+login atau booking pada revisi ini.** Lihat [ADR 0001](docs/adr/0001-foundation-slice.md).
 
 ## Menjalankan dan memverifikasi lapisan ini
 
@@ -31,8 +32,20 @@ stack sekaligus. Native memverifikasi PID/binary/data directory sebelum memakai 
 
 `.env` dibuat dengan secret acak dan tidak ditimpa. Jangan membagikan atau commit `.env`.
 Setup/dev dan shortcut mutasi database root menolak database non-loopback serta mode produksi.
-Perintah setup aplikasi lengkap, migrasi, seed, dan `pnpm dev` baru digunakan setelah lapisan
-DB/API/web tersedia. Bootstrap tidak mereset data.
+Perintah setup aplikasi lengkap dan `pnpm dev` digunakan setelah lapisan API/web tersedia.
+Bootstrap tidak mereset data.
+
+## Database lokal
+
+Sesudah `.env` dan layanan lokal siap, jalankan `pnpm db:generate`, `pnpm db:migrate`, lalu
+`pnpm db:seed`. Seed membuat admin dari environment dan lima kendaraan sintetis bila
+`SEED_DEMO_DATA=true`. Data contoh bukan ketersediaan atau tarif bisnis terverifikasi; seed
+ulang tidak menimpa password/peran admin maupun mobil yang telah diedit.
+
+Model booking, invoice, pembayaran, dan operasional ditambahkan melalui migrasi fase berikutnya.
+Relasi sesi/audit menggunakan waktu UTC `timestamptz`; nominal tarif integer rupiah. Trigger
+database menolak update/delete/truncate audit. Jalur `pnpm --filter @fa/db migrate:deploy`
+tetap tersedia secara eksplisit untuk operator deployment dengan environment terkelola.
 
 ## Batas kontrak harga
 
