@@ -1,0 +1,44 @@
+{
+  "name": "fa-rent-car",
+  "private": true,
+  "packageManager": "pnpm@10.26.0",
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": ">=10 <11"
+  },
+  "scripts": {
+    "dev": "bash scripts/dev.sh",
+    "build": "turbo run build",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "turbo run typecheck",
+    "test": "pnpm test:environment-safety && turbo run test",
+    "test:environment-safety": "node --test scripts/environment-safety.test.mjs && bash scripts/native-service-utils.test.sh",
+    "test:integration": "turbo run build --filter=@fa/api && dotenv -e .env -- pnpm --filter @fa/api test:integration",
+    "test:e2e": "turbo run build --filter=@fa/api && dotenv -e .env -- playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:generate": "pnpm --filter @fa/db generate",
+    "db:guard-local": "node --env-file=.env scripts/local-db-mutation-guard.mjs",
+    "db:migrate": "pnpm db:guard-local && dotenv -e .env -- pnpm --filter @fa/db migrate:deploy",
+    "db:seed": "pnpm db:guard-local && pnpm --filter @fa/shared build && dotenv -e .env -- pnpm --filter @fa/db seed",
+    "services:up": "bash scripts/services.sh up",
+    "services:stop": "bash scripts/services.sh stop",
+    "services:status": "bash scripts/services.sh status",
+    "setup": "bash scripts/setup.sh"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.13.4",
+    "concurrently": "9.2.1",
+    "dotenv-cli": "10.0.0",
+    "eslint": "10.10.0",
+    "eslint-config-prettier": "10.1.8",
+    "prettier": "3.6.2",
+    "tsx": "4.20.6",
+    "turbo": "2.10.12",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.70.0",
+    "vitest": "4.1.11"
+  }
+}

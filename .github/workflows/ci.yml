@@ -1,0 +1,61 @@
+name: Quality gates
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      TURBO_TELEMETRY_DISABLED: '1'
+      FA_SERVICES_MODE: compose
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Generate Prisma Client
+        if: hashFiles('packages/db/package.json') != ''
+        run: pnpm db:generate
+      - name: Formatting
+        run: pnpm format:check
+      - name: Lint
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Unit tests
+        run: pnpm test
+      - name: Production builds
+        run: pnpm build
+      - name: Start isolated local services
+        if: hashFiles('apps/api/package.json') != ''
+        run: |
+          node scripts/init-env.mjs
+          pnpm services:up
+          pnpm db:migrate
+          pnpm db:seed
+          pnpm exec dotenv -e .env -- pnpm --filter @fa/api storage:init
+      - name: Real database integration tests
+        if: hashFiles('apps/api/test/run-integration.mjs') != ''
+        run: pnpm test:integration
+      - name: Install browser
+        if: hashFiles('playwright.config.ts') != ''
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Desktop and mobile interaction tests
+        if: hashFiles('playwright.config.ts') != ''
+        run: pnpm test:e2e
