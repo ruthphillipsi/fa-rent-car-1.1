@@ -44,9 +44,9 @@ export function redisConnection(url: string): RedisOptions {
     username: parsed.username ? decodeURIComponent(parsed.username) : undefined,
     password: parsed.password ? decodeURIComponent(parsed.password) : undefined,
     db: parsed.pathname.length > 1 ? Number(parsed.pathname.slice(1)) : 0,
-    ...(parsed.protocol === 'rediss:' ? { tls: {} } : {}),
+    ...(parsed.protocol === 'rediss:' ? { tls: { servername: parsed.hostname } } : {}),
     connectTimeout: 5000,
-    maxRetriesPerRequest: 1,
+    maxRetriesPerRequest: null,
   };
 }
 
@@ -93,22 +93,31 @@ export class JobsService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleInit() {
-    await this.queue.waitUntilReady();
-    await this.queue.upsertJobScheduler(
-      'foundation-heartbeat',
-      { every: 60_000 },
-      {
-        name: 'heartbeat',
-        data: { version: 1 },
-        opts: { removeOnComplete: 20, removeOnFail: 50 },
-      },
-    );
-    // Safety net for a lost delayed job: sweep due holds every 5 minutes.
-    await this.queue.upsertJobScheduler(
-      HOLD_SWEEP_SCHEDULER,
-      { every: 5 * 60_000 },
-      { name: 'booking-hold-sweep', opts: { removeOnComplete: 20, removeOnFail: 50 } },
-    );
+    try {
+      await Promise.race([
+        (async () => {
+          await this.queue.waitUntilReady();
+          await this.queue.upsertJobScheduler(
+            'foundation-heartbeat',
+            { every: 60_000 },
+            {
+              name: 'heartbeat',
+              data: { version: 1 },
+              opts: { removeOnComplete: 20, removeOnFail: 50 },
+            },
+          );
+          // Safety net for a lost delayed job: sweep due holds every 5 minutes.
+          await this.queue.upsertJobScheduler(
+            HOLD_SWEEP_SCHEDULER,
+            { every: 5 * 60_000 },
+            { name: 'booking-hold-sweep', opts: { removeOnComplete: 20, removeOnFail: 50 } },
+          );
+        })(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Queue ready check timed out')), 3000)),
+      ]);
+    } catch (err) {
+      this.logger.warn(`Queue scheduler registration deferred: ${err instanceof Error ? err.message : String(err)}`);
+    }
   }
 
   /** Enqueue the per-booking delayed expiry; re-registering the same jobId replaces it. */

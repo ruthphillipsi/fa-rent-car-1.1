@@ -6,7 +6,8 @@ import { createApp } from './create-app';
 async function main() {
   const app = await createApp();
   const config = app.get(ConfigService<Environment, true>);
-  await app.listen(config.get('API_PORT', { infer: true }), '0.0.0.0');
+  const port = process.env.PORT ? Number(process.env.PORT) : config.get('API_PORT', { infer: true });
+  await app.listen(port, '0.0.0.0');
 }
 
 main().catch((err: unknown) => {
